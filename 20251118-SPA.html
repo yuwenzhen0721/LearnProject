@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>派對公司形象網 - SPA</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/my.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        .timeline-section {
+            position: relative;
+        }
+
+        .timeline-section::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: var(--color01);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .carousel-caption-text {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            box-shadow: 2px 2px 6px 2px #ccc;
+        }
+        .s07-userimg{
+            width: 150px;
+            height: 150px;
+            background-color: var(--color01);
+            background-image: url(images/01.jpg);
+            border-radius: 50%;
+        }
+
+        @media screen and (max-width: 768px) {
+            .timeline-section::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!--****************** s01 ***************************-->
+    <section id="s01" class="bg-secondary">
+        <div class="container py-2">
+            <div class="text-end">
+                <a href="">
+                    <i class="fa-brands fa-square-facebook text-primary fa-2x"></i>
+                </a>
+                <i class="fa-brands fa-square-x-twitter text-warning fa-2x"></i>
+                <i class="fa-brands fa-line text-success fa-2x"></i>
+                <i class="fa-brands fa-threads fa-2x"></i>
+            </div>
+        </div>
+    </section>
+
+    <!--****************** s02 ***************************-->
+    <section id="s02">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fa-solid fa-champagne-glasses text-danger fa-3x"></i>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#"><i
+                                    class="fa-solid fa-house me-1 text-info"></i>首頁</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fa-solid fa-address-card me-1"></i>關於我們</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="fa-brands fa-servicestack me-1"></i>服務項目
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">項目01</a></li>
+                                <li><a class="dropdown-item" href="#">項目02</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">項目03</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div>
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#loginModal"><i
+                                class="fa-solid fa-user"></i>登入</button>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#registerModal"><i
+                                class="fa-solid fa-registered"></i>註冊</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </section>
+
+
+    <!-- loginModal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-bg-warning">
+                    <h1 class="modal-title fs-5 fw-900" id="exampleModalLabel">會員登入</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="" class="form-label">帳號</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">密碼</label>
+                        <input type="password" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#registerModal">還沒有帳號</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- registerModal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header text-bg-success">
+                    <h1 class="modal-title fs-5 fw-900" id="exampleModalLabel">會員註冊</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row timeline-section">
+                        <div class="col-md-6">
+                            <div class="h3 fw-900">會員守則</div>
+                            <p><span class="fw-900">一、會員資格</span><br>
+                                註冊本網站會員時，請確認您已年滿 18 歲，並保證所填寫之姓名、電話、Email 等資料為真實、正確且可聯繫之資訊，如有變更請主動更新。</p>
+                            <p><span class="fw-900">二、帳號與密碼</span><br>
+                                會員有義務妥善保管帳號與密碼，不得出借、轉讓或提供第三人使用。凡經由該帳號登入系統後所進行之一切操作，將視為該會員本人之行為。</p>
+                            <p><span class="fw-900">三、預約與變更</span><br>
+                                使用線上預約服務時，請確認日期、時段與方案內容。若需變更或取消預約，請依本公司公告之時間與方式辦理，逾期恕不受理，相關費用以現場或網站公告為準。</p>
+                            <p><span class="fw-900">四、消費與付款</span><br>
+                                會員於本網站或門市進行之各項消費與付費方案，均以當時公告之價格與活動內容為準。本公司保留調整方案、價格及優惠內容之權利，恕不另行個別通知。</p>
+                            <p><span class="fw-900">五、使用禮貌與安全</span><br>
+                                會員於本會館消費與使用設施時，請遵守現場工作人員指示，並保持基本禮貌與尊重。禁止任何騷擾、喧鬧、暴力、故意損壞設備或影響他人權益之行為，本公司得視情況拒絕提供服務。
+                            </p>
+                            <p><span class="fw-900">六、個資與通知</span><br>
+                                會員同意本公司於合理範圍內，利用您提供之聯絡方式（包含 Email、簡訊、通訊軟體等），通知訂單資訊、服務異動及行銷優惠。個人資料僅用於服務與法令許可之範圍內處理。
+                            </p>
+                            <p><span class="fw-900">七、會員權益變更</span><br>
+                                本公司保留隨時修改會員守則、調整會員權益與服務內容之權利，修改後之內容將公告於網站，公告後即自動生效。建議會員不定期查閱以維護自身權益。</p>
+                            <p class="small text-muted">
+                                完成註冊或勾選「同意」即表示您已詳細閱讀並同意遵守上述會員守則。
+                            </p>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" name="" id="" class="form-check-input">
+                                <label for="" class="form-check-label">同意/不同意</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="" class="form-label">帳號</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">密碼</label>
+                                <input type="password" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">確認密碼</label>
+                                <input type="password" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Email</label>
+                                <input type="email" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#loginModal">已有帳號</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--****************** s03 ***************************-->
+    <section id="s03">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active bg-cover"
+                    style="background-image: url(images/party000.jpg); height: 85vh;">
+                    <div class="carousel-caption d-none d-md-block carousel-caption-text">
+                        <h1>廣告標語001</h1>
+                        <p class="h3">
+                            臨時教程工廠知識正確窗口也不輸出很有高中這樣，私服畢竟問題日月潭範圍資訊兩次於是學院商標高速，他們的暴力網頁班郵箱文檔進一步碩士照片在這東方包裝，對象隨後障礙營銷消除標籤，傳真並在為主財產主演，都沒。
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item bg-cover" style="background-image: url(images/party001.jpg); height: 85vh;">
+                    <div class="carousel-caption d-none d-md-block carousel-caption-text">
+                        <h1>廣告標語002</h1>
+                        <p class="h3">
+                            臨時教程工廠知識正確窗口也不輸出很有高中這樣，私服畢竟問題日月潭範圍資訊兩次於是學院商標高速，他們的暴力網頁班郵箱文檔進一步碩士照片在這東方包裝，對象隨後障礙營銷消除標籤，傳真並在為主財產主演，都沒。
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item bg-cover" style="background-image: url(images/party002.jpg); height: 85vh;">
+                    <div class="carousel-caption d-none d-md-block carousel-caption-text">
+                        <h1>廣告標語003</h1>
+                        <p class="h3">
+                            臨時教程工廠知識正確窗口也不輸出很有高中這樣，私服畢竟問題日月潭範圍資訊兩次於是學院商標高速，他們的暴力網頁班郵箱文檔進一步碩士照片在這東方包裝，對象隨後障礙營銷消除標籤，傳真並在為主財產主演，都沒。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!--****************** s04 counterup ***************************-->
+    <section id="s04">
+        <div class="row align-items-center">
+            <div class="col-md-5 bg-cover d-none d-md-block"
+                style="background-image: url(images/party008.jpg); height: 600px;"></div>
+            <div class="col-md-7 p-5">
+                <div class="h1">西元2000年 <span class="text-success fw-900">全球第一家</span></div>
+                <div class="h1">專業籌辦派對團隊</div>
+                <p class="mb-1">當前位置投資麻煩版權不要患者，精采專題。</p>
+                <p class="mb-1">當前位置投資麻煩版權不要患者，精采專題。</p>
+                <p class="mb-1">當前位置投資麻煩版權不要患者，精采專題。</p>
+                <div class="row mt-5">
+                    <div class="col-md-3 text-center">
+                        <div class="h4">年均派對</div>
+                        <div class="display-2 fw-900 text-primary counter01">990 <span class="h4">/場</span> </div>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <div class="h4">獲獎數目</div>
+                        <div class="display-2 fw-900 text-danger counter02">9 <span class="h4">/項</span> </div>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <div class="h4">專業認證</div>
+                        <div class="display-2 fw-900 text-warning counter03">90 <span class="h4">/項</span> </div>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <div class="h4">公司據點</div>
+                        <div class="display-2 fw-900 text-info counter04">5 <span class="h4">/個</span> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--****************** s05 企業精神標語***************************-->
+    <section id="s05" class="bg-info py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <i class="fa-solid fa-republican fa-8x text-01 mt-3"></i>
+                    <div class="h1 fw-900 text-success mt-3">企業精神01</div>
+                    <p class="mt-3 text-muted d-none d-md-block">
+                        審批全球一會兒魔獸贏得相信尋找壓縮無限，回家孤獨反映，大陸一時分享有一種矛盾免費十分商標平衡高校，之後一顆都有一絲加盟一片畫面對面，回憶形象深刻運動成功網頁直。</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <i class="fa-solid fa-democrat fa-8x text-02 mt-3"></i>
+                    <div class="h1 fw-900 text-success mt-3">企業精神02</div>
+                    <p class="mt-3 text-muted d-none d-md-block">
+                        審批全球一會兒魔獸贏得相信尋找壓縮無限，回家孤獨反映，大陸一時分享有一種矛盾免費十分商標平衡高校，之後一顆都有一絲加盟一片畫面對面，回憶形象深刻運動成功網頁直。</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <i class="fa-solid fa-handshake fa-8x text-03 mt-3"></i>
+                    <div class="h1 fw-900 text-success mt-3">企業精神03</div>
+                    <p class="mt-3 text-muted d-none d-md-block">
+                        審批全球一會兒魔獸贏得相信尋找壓縮無限，回家孤獨反映，大陸一時分享有一種矛盾免費十分商標平衡高校，之後一顆都有一絲加盟一片畫面對面，回憶形象深刻運動成功網頁直。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--****************** s06 ***************************-->
+
+
+
+    <!--*************** s07 派對主持人介紹 ***********************-->
+    <div class="section" id="s07">
+        <div class="container">
+            <div class="display-2 fw-900 text-03 text-center my-4">派對主持人介紹</div>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="s07-userimg bg-cover me-3"></div>
+                        <div>
+                            <div class="h1">主持人: XXXXX</div>
+                            <p>正確上班這
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js"></script>
+    <script>
+        //*********************counterup 2*********************
+        const counterUp = window.counterUp.default
+        const callback = entries => {
+            entries.forEach(entry => {
+                const el = entry.target
+                if (entry.isIntersecting && !el.classList.contains('is-visible')) {
+                    counterUp(el, {
+                        duration: 2000,
+                        delay: 16,
+                    })
+                    el.classList.add('is-visible')
+                }
+            })
+        }
+        const IO = new IntersectionObserver(callback, { threshold: 1 })
+
+        const el01 = document.querySelector('.counter01')
+        IO.observe(el01)
+        const el02 = document.querySelector('.counter02')
+        IO.observe(el02)
+        const el03 = document.querySelector('.counter03')
+        IO.observe(el03)
+        const el04 = document.querySelector('.counter04')
+        IO.observe(el04)
+    </script>
+</body>
+
+</html>

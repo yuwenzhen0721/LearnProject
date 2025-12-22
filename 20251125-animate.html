@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>動畫練習 animate.css</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"> 
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/my.css">
+    <style>
+        .box{
+            height: 280px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-12 vh-100 bg-primary"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-3">
+                <i class="fa-solid fa-heart-pulse fa-8x text-danger wow animate__heartBeat" data-wow-duration="0.3s" data-wow-delay="0s" data-wow-iteration="infinite"></i>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-6">
+                <div class="box py-5 bg-success wow animate__fadeInBottomLeft" data-wow-duration="2s" data-wow-delay="0s" data-wow-iteration="1"></div>
+            </div>
+            <div class="col-6">
+                 <div class="box py-5 bg-success wow animate__fadeInBottomRight" data-wow-duration="5s" data-wow-delay="0s" data-wow-iteration="1"></div>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-6">
+                <div class="box py-5 bg-danger wow animate__fadeInBottomLeft" data-wow-duration="2s" data-wow-delay="0s" data-wow-iteration="1"></div>
+            </div>
+            <div class="col-6">
+                 <div class="box py-5 bg-danger wow animate__fadeInBottomRight" data-wow-duration="5s" data-wow-delay="0s" data-wow-iteration="1"></div>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-6">
+                <div class="box py-5 bg-warning wow animate__fadeInDownBig" data-wow-duration="2s" data-wow-delay="0s" data-wow-iteration="1"></div>
+            </div>
+            <div class="col-6">
+                 <div class="box py-5 bg-warning wow animate__flipInX" data-wow-duration="5s" data-wow-delay="0s" data-wow-iteration="1"></div>
+            </div>
+        </div>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</body>
+</html>

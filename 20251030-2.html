@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CH5</title>
+    <link rel="stylesheet" href="CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="CSS/mycss.css">
+
+    <style>
+        @media screen and (max-width:768px) {
+            .table-rwd thead {
+                display: none;
+            }
+
+            .table-rwd tbody tr {
+                display: block;
+                border: 1px solid var(--color10);
+                margin-top: 15px;
+                border-radius: 10px;
+                box-shadow: 1px 1px 10px 2px var(--color11);
+            }
+
+            .table-rwd tbody tr td {
+                display: block;
+            }
+
+            .table-rwd tbody tr td::before {
+                content: attr(data-th) ":";
+                color: rgb(165, 91, 42);
+                font-weight: 700;
+                font-size: 18px;
+                display: block;
+                float: left;
+                width: 35%;
+                text-align: right;
+                padding-right: 10px;
+            }
+
+            .table-rwd tbody tr td span {
+                display: block;
+                float: left;
+                width: 70%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenter">
+        <table class="table table-rwd">
+            <!-- table 表格、table-striped 格行同色、table-bordered 表格框線 -->
+            <thead class="table-dark">
+                <!-- table-dark 暗色主題 -->
+                <tr>
+                    <th width="10%">商品編號</th>
+                    <th width="10%">商品名稱</th>
+                    <th width="30%">商品圖片</th>
+                    <th width="10%">商品價格</th>
+                    <th width="10%">商品數量</th>
+                    <th width="30%">商品備註</th>
+                </tr>
+            </thead>
+            <tbody id="mybody">
+                <tr>
+                    <td data-th="商品編號">
+                        <sapn>02</sapn>
+                    </td>
+                    <td data-th="商品名稱">
+                        <sapn>日本神戶A5和牛</sapn>
+                    </td>
+                    <td data-th="商品圖片">
+                        <img src="pictures/cat2.avif" class="img-fluid img-thumbnail" alt="">
+                    </td>
+                    <td data-th="商品價格">
+                        <sapn>4000</sapn>
+                    </td>
+                    <td data-th="商品數量">
+                        <sapn>50</sapn>
+                    </td>
+                    <td data-th="商品備註">
+                        <sapn>日本宰殺當天空運來台，是不可多得的夢幻逸品</sapn>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-th="商品編號">
+                        <sapn>03</sapn>
+                    </td>
+                    <td data-th="商品名稱">
+                        <sapn>法國波爾酒莊典藏30年限定葡萄酒</sapn>
+                    </td>
+                    <td data-th="商品圖片">
+                        <img src="pictures/cat1.avif" class="img-fluid img-thumbnail" alt="">
+                    </td>
+                    <td data-th="商品價格">
+                        <sapn>100000</sapn>
+                    </td>
+                    <td data-th="商品數量">
+                        <sapn>5</sapn>
+                    </td>
+                    <td data-th="商品備註">
+                        <sapn>酒莊限定釋出5瓶，以波爾多的葡萄及白葡萄</sapn>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 顏色
+    table-XXX 代表顏色具有透明度
+    bg-XXX 代表顏色不具有透明度
+    YYY-danger 紅色
+    YYY-warning 黃色
+    YYY-success 綠色
+    YYY-info 淺藍
+    YYY-primary 深藍
+    YYY-secondary、active、dark 深色系(灰、黑)
+    YYY-light 亮色系(白)
+    YYY-default 初始預設 -->
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+        //主程式
+        $(function () {
+            // console.log("Hello world!")
+
+            // 與外部資料溝通         抓取外部檔案
+            $.ajax({
+                type: "GET",
+                url: "https://data.moa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx?IsTransData=1&UnitId=193",
+                dataType: "json",
+                success: showdata,
+                error: function () {
+                    console.log("連線失敗");
+                }
+            });
+        });
+
+        function showdata(data) {
+            console.log(data);
+
+            $("#mybody").empty();
+            for (let i = 0; i < data.length; i++) {
+                // console.log(i+":"+data[i].Name);
+                // console.log(i+":"+data[i].Address);
+                // console.log(i+":"+data[i].Tel);
+
+                let strHTML = `<tr>
+                                <td data-th="店家名稱"><sapn>${data[i].Name}</sapn></td>
+                                <td data-th="店家圖片">
+                                    <img src="${data[i].PicURL}" class="img-fluid img-thumbnail" alt="">
+                                </td>
+                                <td data-th="店家縣市"><sapn>${data[i].City}</sapn></td>
+                                <td data-th="店家鄉鎮市區"><sapn>${data[i].Town}</sapn></td>
+                                <td data-th="店家地址"><sapn>${data[i].Address}</sapn></td>                              
+                                <td data-th="店家電話"><sapn>${data[i].Tel}</sapn></td>
+                              </tr>`;
+                $("#mybody").append(strHTML);
+
+
+            }
+        }
+    </script>
+</body>
+
+</html>

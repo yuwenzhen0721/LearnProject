@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1028路跑報名網站</title>
+    <link rel="stylesheet" href="CSS/color1.css">
+    <style>
+        body {
+            background-color: var(--color10);
+            margin: 0;
+        }
+
+        .wrapper {
+            width: 1024px;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .banner img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        nav {
+            background-color: var(--color11);
+            text-align: center;
+        }
+
+        nav ul {
+            display: inline-block;
+        }
+
+        nav ul li {
+            float: left;
+            list-style-type: none;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            display: block;
+            color: var(--color06);
+            font-size: 24px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin-right: 30px;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--color12);
+            box-shadow: 0px 0px 10px 2px var(--color13);
+            border-radius: 15px;
+        }
+
+        .content {
+            text-align: center;
+            background-color: var(--color06);
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        .content h1 {
+            color: var(--color04);
+            font-size: 40px;
+        }
+
+        .content p {
+            font-size: 24px;
+        }
+
+        .content a.main-link {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            font-size: 30px;
+            font-weight: bolder;
+            background-color: var(--color12);
+            margin-top: 0;
+            margin-bottom: 30px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            width: 180px;
+            height: 40px;
+            border-radius: 15px;
+            color: var(--color13);
+        }
+
+        .content a:hover {
+            box-shadow: 0px 0px 10px 2px var(--color04);
+        }
+
+        .card-container {
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            /* 最後寫 */
+            overflow: hidden;
+        }
+
+        .card {
+            float: left;
+            width: 30%;
+            margin-right: 5%
+        }
+
+        .card-last {
+            float: left;
+            width: 30%;
+            margin-right: 0;
+        }
+
+        .card img,
+        .card-last img {
+            width: 100%;
+        }
+
+        .card a {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bolder;
+            background-color: var(--color12);
+            margin-top: 0;
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            width: 100px;
+            height: 30px;
+            border-radius: 15px;
+            color: var(--color13);
+        }
+
+        .card-last a {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bolder;
+            background-color: var(--color12);
+            margin-top: 0;
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            width: 100px;
+            height: 30px;
+            border-radius: 15px;
+            color: var(--color13);
+        }
+
+        .footer {
+            text-align: center;
+            background-color: var(--color14);
+            color: var(--color06);
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .roller {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roller-box {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            transform: translateY(-100%);
+            display: flex;
+            align-items: center;
+        }
+
+        .roller:hover .roller-box {
+            transform: translate(0);
+            transition: transform 2s;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="banner">
+            <img src="pictures/Get-Faster_don1don-1.jpg" alt="">
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="#" class="fw-700">活動介紹</a></li>
+                <li><a href="#" class="fw-700">報名資訊</a></li>
+                <li><a href="#" class="fw-700">交通方式</a></li>
+                <li><a href="#" class="fw-700">聯絡我們</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <h1 class="fw-700">2025活力城市公益路跑</h1>
+            <p class="fw-300">重量一旦昨日股東專區，三大或者，我就理。</p>
+            <p class="fw-300">大多數睡覺雙方友情連結告訴你固定都會承。</p>
+            <a href="#" class="fw-400 main-link">了解更多</a>
+
+
+
+
+
+            <!-- 三個圖片連結 -->
+            <div class="card-container">
+                <div class="card roller">
+                    <div class="roller-box">
+                        <a href="#" class="btn-01">報名</a>
+                    </div>
+                    <img src="pictures/run1.jpg" alt="">
+                    <h2>5公里組</h2>
+                    <p>適合新手與親子，輕鬆路線</p>
+                </div>
+                <div class="card roller">
+                    <div class="roller-box">
+                        <a href="#" class="btn-01">報名</a>
+                    </div>
+                    <img src="pictures/run3.jpg" alt="">
+                    <h2>21公里組</h2>
+                    <p>適合有經驗者，困難路線</p>
+                </div>
+                <div class="card card-last roller">
+                    <div class="roller-box">
+                        <a href="#" class="btn-01">報名</a>
+                    </div>
+                    <img src="pictures/run3.jpg" alt="">
+                    <h2>42公里組</h2>
+                    <p>適合挑戰自我，極難路線</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer" class="fw-400">
+            Made By DA Yi
+        </div>
+    </div>
+</body>
+
+</html>

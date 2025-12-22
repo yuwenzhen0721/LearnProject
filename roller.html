@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>roller</title>
+    <style>
+        .box {
+            width: 300px;
+            height: 200px;
+            background-color: #c58c54;
+        }
+
+        .roller {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roller-box {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            transform: translateY(-100%);
+            display: flex;
+            /* 垂直置中 */
+            align-items: center;
+            /* 水平置中 */
+            justify-content: center;
+        }
+
+        .roller:hover .roller-box {
+            transform: translate(0);
+            transition: transform 2s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box roller">
+        <div class="roller-box">
+            XXXXXXXXXXX
+        </div>
+    </div>
+</body>
+
+</html>

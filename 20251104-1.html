@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CH6 欄位與行列(切版)</title>
+    <link rel="stylesheet" href="CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="CSS/mycss.css">
+    <link rel="stylesheet" href="CSS/color chatgpt 1.css">
+
+    <style>
+        .box01{
+            height: 100px;
+            margin-top: 10px;
+        }
+
+        .box02{
+            height: 500px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="fw-700">1.基本排版</h1>
+        <div class="row">
+            <div class="col-12">
+                <div class="box01 bg-danger"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="box01 bg-warning"></div>
+            </div>
+            <div class="col-6">
+                <div class="box01 bg-warning"></div>
+            </div>    
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <div class="box01 bg-success"></div>
+            </div>
+            <div class="col-4">
+                <div class="box01 bg-success"></div>
+            </div>
+            <div class="col-4">
+                <div class="box01 bg-success"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                <div class="box01 bg-info"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-primary"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-secondary"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-dark"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-5">
+                <div class="box01 bg-body-secondary"></div>
+            </div>
+            <div class="col-7">
+                <div class="box01 bg-info"></div>
+            </div>
+        </div>
+
+        <div class="display-5 fw-700">2.斷點排版(sm,md,lg,xl,xxl)</div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="box01 bg-danger"></div>
+            </div>
+            <div class="col-sm-6">
+                <div class="box01 bg-danger"></div>
+            </div>
+        </div>
+
+        <div class="display-5 fw-700">col-md-4</div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box01 bg-warning"></div>
+            </div>
+            <div class="col-md-4">
+                <div class="box01 bg-warning"></div>
+            </div>
+            <div class="col-md-4">
+                <div class="box01 bg-warning"></div>
+            </div>
+        </div>
+
+        <div class="display-5 fw-700">col-lg-3</div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="box01 bg-info"></div>
+            </div>
+            <div class="col-lg-3">
+                <div class="box01 bg-info"></div>
+            </div>
+            <div class="col-lg-3">
+                <div class="box01 bg-info"></div>
+            </div>
+            <div class="col-lg-3">
+                <div class="box01 bg-info"></div>
+            </div>
+        </div>
+
+        <div class="display-5 fw-700">col-xl-2</div>
+        <div class="row">
+            <div class="col-xl-2">
+                <div class="box01 bg-primary"></div>
+            </div>
+            <div class="col-xl-2">
+                <div class="box01 bg-primary"></div>
+            </div>
+            <div class="col-xl-2">
+                <div class="box01 bg-primary"></div>
+            </div>
+            <div class="col-xl-2">
+                <div class="box01 bg-primary"></div>
+            </div>
+            <div class="col-xl-2">
+                <div class="box01 bg-primary"></div>
+            </div>
+            <div class="col-xl-2">
+                <div class="box01 bg-primary"></div>
+            </div>
+        </div>
+
+        <div class="display-5 fw-700">col-xxl-1</div>
+        <div class="row">
+            <div class="col-xxl-1">
+                <div class="box01 bg-dark"></div>
+            </div>
+            <div class="col-xxl-1">
+                <div class="box01 bg-dark"></div>
+            </div>
+            <div class="col-xxl-1">
+                <div class="box01 bg-dark"></div>
+            </div>
+            <div class="col-xxl-1">
+                <div class="box01 bg-dark"></div>
+            </div>
+            <div class="col-xxl-1">
+                <div class="box01 bg-dark"></div>
+            </div>
+            <div class="col-xxl-1">
+                <div class="box01 bg-dark"></div>
+            </div>
+            <div class="col-xxl-1">
+                <div class="box01 bg-dark"></div>
+            </div>
+            <div class="col-xxl-1">
+                <div class="box01 bg-dark"></div>
+            </div>
+            <div class="col-xxl-1">
+                <div class="box01 bg-dark"></div>
+            </div>
+            <div class="col-xxl-1">
+                <div class="box01 bg-dark"></div>
+            </div>
+            <div class="col-xxl-1">
+                <div class="box01 bg-dark"></div>
+            </div>
+            <div class="col-xxl-1">
+                <div class="box01 bg-dark"></div>
+            </div>
+        </div>
+
+        <div class="disply-5 fw-700">3.RWD排版</div>
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                <div class="box01 mtheme1-1"></div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                <div class="box01 mtheme1-1"></div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                <div class="box01 mtheme1-1"></div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                <div class="box01 mtheme1-1"></div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                <div class="box01 mtheme1-1"></div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                <div class="box01 mtheme1-1"></div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                <div class="box01 mtheme1-1"></div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                <div class="box01 mtheme1-1"></div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                <div class="box01 mtheme1-1"></div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                <div class="box01 mtheme1-1"></div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                <div class="box01 mtheme1-1"></div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                <div class="box01 mtheme1-1"></div>
+            </div>
+        </div>
+
+        <div class="display-5 fw-700">4.隱藏(d.none) 顯示(d.block)</div>
+        <div class="row">
+            <div class="col-3 d-md-none d-lg-block"><div class="box01 bgi-10">1</div></div>
+            <div class="col-3 d-lg-none d-xl-block"><div class="box01 bgi-10">2</div></div>
+            <div class="col-3 d-xl-none d-xxl-block"><div class="box01 bgi-10">3</div></div>
+            <div class="col-3 d-xxl-none d-sm-block"><div class="box01 bgi-10">4</div></div>
+        </div>
+
+        <div class="display-5 fw-700">5.巢狀排版</div>
+        <div class="row">
+            <div class="col-3">
+                <div class="box02 bgy-10"></div>
+            </div>
+            <div class="col-9">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="box01 bgv-10"></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="box01 bgb-10"></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="box01 bgg-10"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="display-5 fw-700">6.推移(offset-1~12),ms-auto,me-auto</div>
+        <div class="row">
+            <div class="col-2 offset-xl-1">
+                <div class="box01 bgm-rd"></div>
+            </div>
+            <div class="col-2 offset-xl-2">
+                <div class="box01 bgm-rd"></div>
+            </div>
+            <div class="col-2 offset-xl-2">
+                <div class="box01 bgm-rd"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2 ms-auto">
+                <div class="box01 bgo-10"></div>
+            </div>
+            <div class="col-2">
+                <div class="box01 bgo-10"></div>
+            </div>
+            <div class="col-2">
+                <div class="box01 bgo-10"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2 me-auto">
+                <div class="box01 bgr-10"></div>
+            </div>
+            <div class="col-2">
+                <div class="box01 bgr-10"></div>
+            </div>
+            <div class="col-2">
+                <div class="box01 bgr-10"></div>
+            </div>
+        </div>
+
+        <div class="display-5 fw-700">7.Gutter(g-0~5,gx0~5,gy0~5)</div>
+        <div class="row gx-5 gy-5">
+            <div class="col-3">
+                <div class="box01 bgg-07"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bgg-07"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bgg-07"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bgg-07"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bgg-07"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bgg-07"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bgg-07"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bgg-07"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bgg-07"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bgg-07"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bgg-07"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bgg-07"></div>
+            </div>
+        </div>
+
+
+
+        
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

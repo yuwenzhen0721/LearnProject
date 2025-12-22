@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025全球夢幻旅遊展</title>
+    <style>
+        /* 🌈 旅遊風格配色定義 */
+        :root {
+            --color01: #004E64;
+            /* 深海藍-標題 */
+            --color02: #00A5CF;
+            /* 海洋藍 */
+            --color03: #9FFFCB;
+            /* 淺湖綠 */
+            --color04: #FFFFFF;
+            /* 文字白 */
+            --color05: #F0F8F8;
+            /* 背景淡綠 */
+            --color06: #ffffff;
+            /* Content背景 */
+            --color10: var(--color05);
+            --color11: var(--color02);
+            --color12: var(--color01);
+            --color13: var(--color03);
+            --color14: var(--color02);
+        }
+
+        body {
+            background-color: var(--color10);
+            margin: 0;
+        }
+
+        .wrapper {
+            width: 1024px;
+            margin: 0 auto;
+        }
+
+        .banner img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        nav {
+            background-color: var(--color11);
+            text-align: center;
+        }
+
+        nav ul {
+            display: inline-block;
+            padding: 0;
+        }
+
+        nav ul li {
+            float: left;
+            list-style-type: none;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            display: block;
+            color: var(--color04);
+            font-size: 24px;
+            padding: 10px 15px;
+            margin-right: 30px;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--color12);
+            box-shadow: 0px 0px 10px 2px var(--color13);
+            border-radius: 15px;
+        }
+
+        .content {
+            text-align: center;
+            background-color: var(--color06);
+            padding: 30px 0;
+        }
+
+        .content h1 {
+            color: var(--color01);
+            font-size: 40px;
+        }
+
+        .content p {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .content a.main-link {
+            display: block;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: bold;
+            background-color: var(--color12);
+            margin: 0 auto 30px auto;
+            padding: 10px 0;
+            width: 200px;
+            height: 40px;
+            border-radius: 20px;
+            color: var(--color13);
+        }
+
+        .content a.main-link:hover {
+            box-shadow: 0px 0px 10px 2px var(--color01);
+        }
+
+        .card-container {
+            text-align: center;
+            padding: 20px 0;
+            overflow: hidden;
+        }
+
+        .card,
+        .card-last {
+            float: left;
+            width: 30%;
+            margin-right: 5%;
+        }
+
+        .card-last {
+            margin-right: 0;
+        }
+
+        .card img,
+        .card-last img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .card a,
+        .card-last a {
+            display: block;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            background-color: var(--color12);
+            margin: 10px auto 20px auto;
+            padding: 10px 0;
+            width: 120px;
+            border-radius: 15px;
+            color: var(--color13);
+        }
+
+        .footer {
+            text-align: center;
+            background-color: var(--color14);
+            color: var(--color04);
+            padding: 10px 0;
+        }
+
+        .roller {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roller-box {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            transform: translateY(-100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .roller:hover .roller-box {
+            transform: translate(0);
+            transition: transform 1.5s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="banner">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="旅遊展主視覺 海灘與夕陽">
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="#">熱門行程</a></li>
+                <li><a href="#">優惠方案</a></li>
+                <li><a href="#">旅遊指南</a></li>
+                <li><a href="#">聯絡專員</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <h1>2025 全球夢幻旅遊展</h1>
+            <p>走訪世界最迷人的角落，把心靈交給風景。</p>
+            <p>限時優惠與專業導遊，讓旅行更輕鬆、更美好。</p>
+            <a href="#" class="main-link">查看更多</a>
+
+            <div class="card-container">
+                <div class="card roller">
+                    <div class="roller-box">
+                        <a href="#">立即預訂</a>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="海灘旅遊推薦">
+                    <h2>浪漫海島遊</h2>
+                    <p>細白沙灘與碧藍海水，完美假期首選。</p>
+                </div>
+                <div class="card roller">
+                    <div class="roller-box">
+                        <a href="#">立即預訂</a>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d" alt="城市探索日本東京">
+                    <h2>城市漫遊</h2>
+                    <p>走進世界繁華都市，體驗時尚與文化。</p>
+                </div>
+                <div class="card card-last roller">
+                    <div class="roller-box">
+                        <a href="#">立即預訂</a>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" alt="歐洲古城旅遊">
+                    <h2>古城文化巡禮</h2>
+                    <p>穿越歷史光影，感受古文明的浪漫。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">© 2025 全球夢幻旅遊展 Travel World</div>
+    </div>
+</body>
+
+</html>

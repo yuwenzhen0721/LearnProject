@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>農村地方美食特色小吃</title>
+    <link rel="stylesheet" href="CSS/color1.css">
+    <link rel="stylesheet" href="CSS/bootstrap.min.css">
+    <style>
+        @media screen and (max-width:768px) {
+            .table-rwd thead {
+                display: none;
+            }
+
+            .table-rwd tbody tr {
+                display: block;
+                border: 1px solid var(--color10);
+                margin-top: 15px;
+                border-radius: 10px;
+                box-shadow: 1px 1px 10px 2px var(--color11);
+            }
+
+            .table-rwd tbody tr td {
+                display: block;
+            }
+
+            .table-rwd tbody tr td::before {
+                content: attr(data-th) ":";
+                color: rgb(165, 91, 42);
+                font-weight: 700;
+                font-size: 18px;
+                display: block;
+                float: left;
+                width: 35%;
+                text-align: right;
+                padding-right: 10px;
+            }
+
+            .table-rwd tbody tr td span {
+                display: block;
+                float: left;
+                width: 70%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenter">
+        <table class="table table-rwd">
+            <thead class="table-dark">
+                <tr>
+                    <th width=10%>商店名稱</th>
+                    <th width=30%>商店圖片</th>
+                    <th width=10%>所在城市</th>
+                    <th width=10%>所在鄉鎮</th>
+                    <th width=20%>所在地址</th>
+                    <th width=10%>商店電話</th>
+                </tr>
+            </thead>
+            <tbody id="mybody">
+                <tr>
+                    <td data-th="商店名稱"><span>name</span></td>
+                    <td data-th="商店圖片"><span>picture</span></td>
+                    <td data-th="所在城市"><span>city</span></td>
+                    <td data-th="所在鄉鎮"><span>town</span></td>
+                    <td data-th="所在地址"><span>location</span></td>
+                    <td data-th="商店電話"><span>location</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                type: "GET",
+                url: "js/json/local tasty food.json",
+                dataType: "json",
+                success: showdata,
+                error: function () {
+                    console.log("連線失敗");
+                }
+            });
+        });
+
+        function showdata(data) {
+            console.log(data);
+
+            //方法一
+            // $("#mybody").empty();
+            // for (let i = 0; i < data.length; i++) {
+            //     // console.log(i+":"+data[i].Name);
+            //     // console.log(i+":"+data[i].Address);
+            //     // console.log(i+":"+data[i].Tel);
+
+            //     let strHTML = `<tr>
+            //                     <td data-th="店家名稱"><sapn>${data[i].Name}</sapn></td>
+            //                     <td data-th="店家圖片">
+            //                         <img src="${data[i].PicURL}" class="img-fluid img-thumbnail" alt="">
+            //                     </td>
+            //                     <td data-th="店家縣市"><sapn>${data[i].City}</sapn></td>
+            //                     <td data-th="店家鄉鎮市區"><sapn>${data[i].Town}</sapn></td>
+            //                     <td data-th="店家地址"><sapn>${data[i].Address}</sapn></td>                              
+            //                     <td data-th="店家電話"><sapn>${data[i].Tel}</sapn></td>
+            //                   </tr>`;
+            //     $("#mybody").append(strHTML);
+            // }
+
+            //方法二
+            $("#mybody").empty();
+            data.forEach((item, key) => {
+                // console.log(item);
+                // console.log(key);
+
+                let myimg;
+                if (item.PicURL == ""){
+                    myimg = "pictures/eggsala.jpg";
+                } else {
+                    myimg = item.PicURL;
+                }
+
+                let mytel;
+                if (!item.Tel || item.Tel.trim() === "") {
+                    mytel = "無";
+                } else {
+                    mytel = item.Tel;
+                }
+
+                let strHTML = `<tr>
+                                <td data-th="店家名稱"><span>${item.Name}</span></td>
+                                <td data-th="店家圖片">
+                                    <img src="${myimg}" class="img-fluid img-thumbnail" alt="">
+                                </td>
+                                <td data-th="店家縣市"><span>${item.City}</span></td>
+                                <td data-th="店家鄉鎮市區"><span>${item.Town}</span></td>
+                                <td data-th="店家地址"><span>${item.Address}</span></td>                              
+                                <td data-th="店家電話"><span>${mytel}</span></td>
+                              </tr>`;
+                $("#mybody").append(strHTML);
+
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>路跑報名 - HTML and CSS 練習</title>
+    <link rel="stylesheet" href="css/my.css">
+    <style>
+        body{
+            background-color: var(--color10);
+            margin: 0;
+        }
+        .wrapper{
+            width: 1024px;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .banner img{
+            width: 100%;
+        }
+        nav{
+            background-color: var(--color11);
+            text-align: center;
+        }
+        nav ul{
+            display: inline-block;
+            /* 最後寫 */
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li{
+            float: left;
+            list-style-type: none;
+        }
+        nav ul li a{
+            text-decoration: none;
+            display: block;
+            color: var(--textcolor01);
+            font-size: 18px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        nav ul li a:hover{
+            background-color: var(--color12);
+            color: var(--color13);
+        }
+        .content{
+            text-align: center;
+            background-color: var(--color16);
+            padding-top: 30px;
+            padding-bottom: 30px;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+        .content h1{
+            color: var(--color14);
+            font-size: 30px;
+        }
+        .content p{
+            font-size: 18px;
+        }
+        .content a{
+            display: block;
+            width: 160px;
+            height: 45px;
+            background-color: var(--color15);
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--textcolor01);
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 45px;
+        }
+        .card-container{
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            /* 最後寫 */
+            overflow: hidden;
+        }
+        .card{
+            float: left;
+            width: 30%;
+            margin-right: 5%;
+        }
+        .card-last{
+            margin-right: 0;
+        }
+        .card img{
+            width: 100%;
+        }
+        .footer{
+            background-color: var(--color13);
+            color: var(--textcolor01);
+            text-align: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .roller{
+            position: relative;
+            overflow: hidden;
+        }
+        .roller-box{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            transform: translateY(-100%);
+            display: flex;
+            align-items: center;
+        }
+        .roller:hover .roller-box{
+            transform: translateY(0);
+            transition: transform 2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="banner">
+            <img src="images/run04.avif" alt="">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="fw-900">活動介紹</a></li>
+                <li><a href="#" class="fw-900">報名資訊</a></li>
+                <li><a href="#" class="fw-900">交通方式</a></li>
+                <li><a href="#" class="fw-900">聯絡我們</a></li>
+            </ul>
+        </nav>
+        <div class="content">
+            <h1>2025 活力城市公益路跑</h1>
+            <p>歡迎熱血的你參加本次公益路跑活動，享受運動的樂趣，並為公益盡一份心力。</p>
+            <p>參加者將獲得紀念T恤、完賽證書與豐富補給，適合親子、朋友、同事一同參與！</p>
+            <a href="#" class="fw-900">立即報名</a>
+
+            <!-- 三格子 -->
+            <div class="card-container">
+                <div class="card roller">
+                    <div class="roller-box">
+                        <a href="#"class="btn-01">報名</a>
+                    </div>
+                    <img src="images/run01.avif" alt="">
+                    <h2>5公里組</h2>
+                    <p>適合新手與親子同行，輕鬆路線。</p>
+                </div>
+                <div class="card roller">
+                    <div class="roller-box">
+                        <a href="#"class="btn-01">報名</a>
+                    </div>
+                    <img src="images/run02.avif" alt="">
+                    <h2>10公里組</h2>
+                    <p>進階挑戰組，適合經常慢跑者。</p>
+                </div>
+                <div class="card card-last roller">
+                    <div class="roller-box">
+                        <a href="#"class="btn-01">報名</a>
+                    </div>
+                    <img src="images/run03.avif" alt="">
+                    <h2>親子組</h2>
+                    <p>親子一起跑，感情不會少！</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            主辦單位：健康生活協會 | 聯絡電話：02-1234-5678
+        </div>
+    </div>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>

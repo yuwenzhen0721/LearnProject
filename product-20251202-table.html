@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品管理系統 - 產品列表</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/my.css">
+    <link rel="stylesheet" href="css/table-rwd.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="product-20251128-add.html">產品新增</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="product-20251128-table.html" target="_blank">產品列表</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-rwd">
+                            <thead>
+                                <tr>
+                                    <th>產品編號</th>
+                                    <th>產品名稱</th>
+                                    <th>產品價格</th>
+                                    <th>產品數量</th>
+                                    <th>產品描述</th>
+                                    <th>更新</th>
+                                    <th>刪除</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mytbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- updateModal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-bg-warning">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">產品更新</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">產品編號</label>
+                        <input type="number" class="form-control" id="p_id" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">產品名稱</label>
+                        <input type="text" class="form-control" id="p_name" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">產品價格</label>
+                        <input type="number" min="1" max="20000" class="form-control" id="p_price">
+                        <div class="valid-feedback">價格符合規定!</div>
+                        <div class="invalid-feedback">價格不符合規定!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">產品數量</label>
+                        <input type="number" min="1" max="20000" class="form-control" id="p_qty">
+                        <div class="valid-feedback">數量符合規定!</div>
+                        <div class="invalid-feedback">數量不符合規定!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">產品描述</label>
+                        <input type="text" class="form-control" id="p_note">
+                        <div class="valid-feedback">描述符合規定!</div>
+                        <div class="invalid-feedback">描述不符合規定!</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="update_ok_btn">更新</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+    <script>
+        let alldata = [];
+        let flag_p_price = false;
+        let flag_p_qty = false;
+        let flag_p_note = false;
+
+        $(function () {
+            getAllItem();
+
+            // 監聽更新按鈕
+            $("#mytbody").on("click", ".btn-update", function () {
+                $("#p_id").val($(this).data("id"));
+                $("#p_name").val($(this).data("name"));
+                $("#p_price").val($(this).data("price"));
+                $("#p_qty").val($(this).data("qty"));
+                $("#p_note").val($(this).data("note"));
+
+                // 立即驗證一次
+                $("#p_price").trigger("input");
+                $("#p_qty").trigger("input");
+                $("#p_note").trigger("input");
+            });
+
+            // 更新按鈕
+            $("#update_ok_btn").click(function () {
+                if (flag_p_price && flag_p_qty && flag_p_note) {
+                    let id = $("#p_id").val();
+                    let jsonDATA = {
+                        name: $("#p_name").val(),
+                        price: $("#p_price").val(),
+                        qty: $("#p_qty").val(),
+                        note: $("#p_note").val()
+                    };
+                    axios.put(`http://localhost:3000/products/${id}`, JSON.stringify(jsonDATA))
+                        .then(() => {
+                            getAllItem();
+                            $("#updateModal").modal('hide');
+                        })
+                        .catch(err => console.log(err));
+                } else {
+                    Swal.fire({
+                        title: "錯誤",
+                        text: "欄位有誤，請更正!",
+                        icon: "error"
+                    });
+                }
+            });
+
+            // 刪除按鈕
+            $("#mytbody").on("click", ".btn-delete", function () {
+                const id = $(this).data("id");
+                if (confirm("確定要刪除這筆資料嗎？")) {
+                    axios.delete(`http://localhost:3000/products/${id}`)
+                        .then(() => getAllItem())
+                        .catch(err => console.log(err));
+                }
+            });
+
+            // 輸入驗證
+            $("#p_price").on("input", function () {
+                let val = parseFloat($(this).val());
+                if (val > 20 && val <= 20000) {
+                    $(this).removeClass("is-invalid").addClass("is-valid");
+                    flag_p_price = true;
+                } else {
+                    $(this).removeClass("is-valid").addClass("is-invalid");
+                    flag_p_price = false;
+                }
+            });
+
+            $("#p_qty").on("input", function () {
+                let val = parseFloat($(this).val());
+                if (val > 0 && val <= 20000) {
+                    $(this).removeClass("is-invalid").addClass("is-valid");
+                    flag_p_qty = true;
+                } else {
+                    $(this).removeClass("is-valid").addClass("is-invalid");
+                    flag_p_qty = false;
+                }
+            });
+
+            $("#p_note").on("input", function () {
+                let len = $(this).val().length;
+                if (len > 0 && len <= 300) {
+                    $(this).removeClass("is-invalid").addClass("is-valid");
+                    flag_p_note = true;
+                } else {
+                    $(this).removeClass("is-valid").addClass("is-invalid");
+                    flag_p_note = false;
+                }
+            });
+        });
+
+        // 取得所有資料
+        function getAllItem() {
+            axios.get('http://localhost:3000/products')
+                .then(response => {
+                    alldata = response.data;
+                    renderTable();
+                })
+                .catch(err => console.log(err));
+        }
+
+        // 渲染表格
+        function renderTable() {
+            $("#mytbody").empty();
+            alldata.forEach(item => {
+                let strHTML = `<tr>
+                                    <td data-th="產品編號">${item.id}</td>
+                                    <td data-th="產品名稱">${item.name}</td>
+                                    <td data-th="產品價格">${item.price}</td>
+                                    <td data-th="產品數量">${item.qty}</td>
+                                    <td data-th="產品描述">${item.note}</td>
+                                    <td><button class="btn btn-warning btn-update" data-bs-toggle="modal" data-bs-target="#updateModal" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}" data-qty="${item.qty}" data-note="${item.note}">更新</button></td>
+                                    <td><button class="btn btn-danger btn-delete" data-id="${item.id}">刪除</button></td>
+                                </tr>`;
+                $("#mytbody").append(strHTML);
+            });
+        }
+    </script>
+</body>
+
+</html>

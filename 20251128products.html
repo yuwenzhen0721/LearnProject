@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1128產品建檔列表暨管理系統</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mycss.css">
+    <link rel="stylesheet" href="css/color-chatgpt1.css">
+    <link rel="stylesheet" href="css/table-rwd.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fa-brands fa-pagelines fa-3x text-success"></i>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            <i class="fa-regular fa-house text-light fa-2x me-1"></i>首頁
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fa-solid fa-link fa-2x text-light"></i>關於我們
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fa-solid fa-box fa-2x text-light"></i>綜合
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" aria-current="page" href="20251128-2product.html">點我下訂單</a></li>
+                            <li><a class="dropdown-item" href="#"></a></li>
+                            <li><a class="dropdown-item" href="#"></a></li>
+                            <li><a class="dropdown-item" href="#"></a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">其他</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">登入</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#registerModal">註冊</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-rwd">
+                            <thead>
+                                <tr>
+                                    <th>產品編號</th>
+                                    <th>產品名稱</th>
+                                    <th>產品價格</th>
+                                    <th>產品數量</th>
+                                    <th>產品描述</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mytbody">
+                                <tr>
+                                    <td data-th="產品編號"></td>
+                                    <td data-th="產品名稱"></td>
+                                    <td data-th="產品價格"></td>
+                                    <td data-th="產品數量"></td>
+                                    <td data-th="產品描述"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+
+    <script>
+        let alldata = [];
+        $(function () {
+            getAllItem();
+            console.log(alldata);
+        })
+
+        //取得所有資料
+        function getAllItem() {
+            axios.get('http://localhost:3000/products')
+                .then(function (response) {
+                    console.log(response.data);
+                    alldata = response.data;
+                    renderTable();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                    // always executed
+                });
+        }
+
+        function renderTable() {
+            $("#mytbody").empty();
+            alldata.forEach((item) => {
+                let strHTML = `<tr>
+                                    <td data-th="產品編號">${item.id}</td>
+                                    <td data-th="產品名稱">${item.name}</td>
+                                    <td data-th="產品價格">${item.price}</td>
+                                    <td data-th="產品數量">${item.qty}</td>
+                                    <td data-th="產品描述">${item.note}</td>
+                                </tr>`;
+                $("#mytbody").append(strHTML);
+            });
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>

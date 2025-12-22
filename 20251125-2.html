@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wow動畫</title>
+    <link rel="stylesheet" href="CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="CSS/mycss.css">
+    <link rel="stylesheet" href="CSS/color chatgpt 1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body class="bg-dark">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-12 bg-info py-5 vh-100"></div>
+        </div>
+    
+        <div class="row mt-5">
+            <div class="col-3 bgy-4 py-5 wow animate__animated animate__bounce"></div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-6">
+                <div class="py-5 bg-success wow animate__animated animate__slideInLeft" data-wow-duration="2s" data-wow-delay="5s">
+                </div>
+            </div>
+            <div class="col-6 justify-content-end">
+                <i class="fa-brands fa-apple text-white animate__animated animate__backInDown" data-wow-duration="2s" data-wow-delay="5s" data-wow-iteration="10"></i>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/WOW.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</body>
+</html>

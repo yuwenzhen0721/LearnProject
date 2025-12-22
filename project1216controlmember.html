@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>controller</title>
+
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mycss.css">
+    <link rel="stylesheet" href="css/table-rwd.css">
+    <link rel="stylesheet" href="css/color-chatgpt1.css">
+</head>
+
+<body>
+
+    <!-- s2 導覽列 -->
+    <section id="s2">
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+            <div class="container">
+                <a class="navbar-brand text-success" href="project1216.html">
+                    <i class="fa-brands fa-pagelines fa-2x"></i> MiNi商店
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link not-ready" href="#">關於我們</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                農產品專區
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item not-ready" href="#">水果</a></li>
+                                <li><a class="dropdown-item not-ready" href="#">蔬菜</a></li>
+                                <li><a class="dropdown-item not-ready" href="#">菇類</a></li>
+                                <li><a class="dropdown-item not-ready" href="#">種苗</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item not-ready" href="#">其他</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex align-items-center">
+                        <span class="text-03 h5 me-3 d-none" id="s2_menber_span"></span>
+                        <button class="btn btn-danger" id="s2_logoutbtn">登出</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </section>
+
+    <!-- admin 專屬會員列表 -->
+    <section id="adminPanel" class="d-none mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h4 class="mb-3">會員管理列表</h4>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>會員編號</th>
+                                        <th>會員帳號</th>
+                                        <th>會員等級</th>
+                                        <th>註冊時間</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="userstbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JS -->
+    <script src="js/jquery-3.7.1.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/sweetalert2@11.js"></script>
+
+    <script>
+        $(function () {
+            checkLoginStatus();
+
+            $("#s2_logoutbtn").on("click", function () {
+                localStorage.removeItem("uid");
+                location.reload();
+            });
+        });
+
+        function checkLoginStatus() {
+            let token = localStorage.getItem("uid");
+            if (!token) return;
+
+            axios.get("http://127.0.0.1:5000/api/me", {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            .then(function (response) {
+                if (response.data.status) {
+                    setControlUI(response.data.userName);
+
+                    if (response.data.level === 'admin') {
+                        $("#adminPanel").removeClass("d-none");
+                        loadAllUsers();
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
+
+        function setControlUI(userName) {
+            $("#s2_menber_span")
+                .removeClass("d-none")
+                .html(`會員：<strong>${userName}</strong>`);
+        }
+
+        function loadAllUsers() {
+            let token = localStorage.getItem("uid");
+            if (!token) return;
+
+            axios.get("http://127.0.0.1:5000/api/admin", {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            .then(function (response) {
+                $("#userstbody").empty();
+
+                response.data.users.forEach(item => {
+                    $("#userstbody").append(`
+                        <tr>
+                            <td data-th="編號">${item.id}</td>
+                            <td data-th="帳號">${item.userName}</td>
+                            <td data-th="等級">${item.level}</td>
+                            <td data-th="時間">${item.created_at}</td>
+                        </tr>
+                    `);
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
+    </script>
+
+</body>
+</html>

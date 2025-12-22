@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>1118公司形象網站 — 優化版</title>
+
+    <!-- Bootstrap CSS（使用 CDN，開發時方便；部署可改為本機檔案）-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome：你原本有用 icon（示範使用 CDN） -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <!-- ===========================
+       統一整合 CSS（所有樣式集中於此）
+       - 我把原本零散樣式整合、並加入註解
+       - 若日後想拆成外部檔案，可把 <style> 內容搬到 mycss.css
+     ============================ -->
+    <style>
+        /* -----------------------
+       全站基本設定
+       - 可以放你想要的字體或變數
+    ------------------------*/
+        :root {
+            --accent: #19a974;
+            --muted: #6b7280;
+            --blue-20: rgba(7, 42, 36, 0.12);
+        }
+
+        body {
+            font-family: "Noto Sans TC", system-ui, -apple-system, "Helvetica Neue", "Segoe UI", "Roboto", "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.6;
+            color: #111;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* -----------------------
+       共用：背景圖覆蓋（cover）
+       - 對 background 圖像統一 cover 與定位
+    ------------------------*/
+        .bg-cover {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* -----------------------
+       輪播（s3）微調
+       - 我改用 <img> 在 container 裡，讓左右留白一致
+    ------------------------*/
+        #s3 .carousel-item img {
+            height: 75vh;
+            /* 桌機時高度 */
+            object-fit: cover;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            #s3 .carousel-item img {
+                height: 45vh;
+            }
+
+            /* 手機高度較低 */
+        }
+
+        /* -----------------------
+       s6 左側背景區塊
+       - 使用欄位 (col) 以便跟 container 對齊
+       - left-img 最小高度可改，手機會自動收合
+    ------------------------*/
+        #s6 .left-img {
+            min-height: 300px;
+        }
+
+        @media (max-width: 768px) {
+            #s6 .left-img {
+                min-height: 200px;
+            }
+        }
+
+        /* -----------------------
+       s7 主理人卡片照片
+       - 使用 inline style 設 background-image（你想換圖直接換 HTML）
+    ------------------------*/
+        .s7-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 18px;
+            background-size: cover;
+            background-position: center;
+            flex: 0 0 auto;
+            /* 讓 d-flex 時照片固定大小 */
+            transition: transform .45s ease, box-shadow .45s ease;
+        }
+
+        .s7-photo:hover {
+            transform: scale(1.12);
+            box-shadow: 0 6px 22px var(--blue-20);
+        }
+
+        /* -----------------------
+       小裝飾與可讀性微調
+    ------------------------*/
+        .carousel-caption-text {
+            background-color: rgba(0, 0, 0, 0.45);
+            padding: 1rem;
+            border-radius: 14px;
+        }
+
+        .section-title {
+            letter-spacing: 0.5px;
+        }
+
+        /* 讓大 icon 與文字在小螢幕也好看 */
+        .fa-8x {
+            font-size: 4.2rem;
+        }
+
+        /* timelines 在小螢幕隱藏線條（你原本有此需求） */
+        @media (max-width: 768px) {
+
+            .timeline-section::before,
+            .timeline-section-pointer::before {
+                display: none;
+            }
+        }
+
+        /* 調整 navbar brand icon 與按鈕間距 */
+        .navbar-brand .fa-pagelines {
+            vertical-align: middle;
+        }
+
+        /* 一些內容區塊的上下間距 */
+        section {
+            padding-top: 1.6rem;
+            padding-bottom: 1.6rem;
+        }
+
+        /* 讓容器內的深色區塊文字不會太靠邊 */
+        .container.bg-dark {
+            padding: 1.2rem 1.6rem;
+        }
+
+        /* counter 部分：確保數字區塊的可視性 */
+        .counter01,
+        .counter02,
+        .counter03,
+        .counter04 {
+            display: inline-block;
+            min-width: 70px;
+        }
+
+        /* 小螢幕微調，讓 d-flex 變垂直堆疊 */
+        @media (max-width: 576px) {
+            .d-flex.row-stack {
+                display: flex;
+                flex-direction: column;
+                gap: .75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================
+       S1：頂部社群 Icon（保留） 
+       - 包在 container：左右留白與其它區塊一致
+     ============================ -->
+    <section id="s1" class="bg-success text-white py-2">
+        <div class="container">
+            <div class="text-end">
+                <a href="#" class="mx-1"><i class="fa-brands fa-square-facebook fa-2x text-primary"></i></a>
+                <a href="#" class="mx-1"><i class="fa-brands fa-square-threads fa-2x text-dark"></i></a>
+                <a href="#" class="mx-1"><i class="fa-brands fa-line fa-2x text-light"></i></a>
+                <a href="#" class="mx-1"><i class="fa-brands fa-square-instagram fa-2x text-warning"></i></a>
+                <a href="#" class="mx-1"><i class="fa-brands fa-x-twitter fa-2x text-dark"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+       S2：Navbar（保留）
+     ============================ -->
+    <section id="s2">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fa-brands fa-pagelines fa-3x text-success"></i>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#"><i
+                                    class="fa-regular fa-house text-light me-1"></i>首頁</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#">關於我們</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown">農產品專區</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">水果</a></li>
+                                <li><a class="dropdown-item" href="#">菇類</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">其他</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!-- 登入/註冊按鈕 -->
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">登入</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#registerModal">註冊</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </section>
+
+    <!-- ============================
+       Login Modal（保持簡單） 
+       - 注意：modal 互相開啟用 data-bs-target 控制
+     ============================ -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true" aria-labelledby="loginLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-bg-warning">
+                    <h5 class="modal-title" id="loginLabel">會員登入</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 小示範：表單驗證可在此擴充 -->
+                    <div class="mb-3">
+                        <label class="form-label">帳號</label>
+                        <input type="text" class="form-control" placeholder="請輸入帳號">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">密碼</label>
+                        <input type="password" class="form-control" placeholder="請輸入密碼">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#registerModal"
+                        data-bs-dismiss="modal">未註冊？註冊</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">登入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal（保留原先較長的條款顯示） -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true" aria-labelledby="registerLabel">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header text-bg-warning">
+                    <h5 class="modal-title" id="registerLabel">會員註冊</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+                </div>
+                <div class="modal-body timeline-section">
+                    <div class="row">
+                        <div class="col-6">
+                            <h3 class="fw-bold">會員守則</h3>
+                            <ol>
+                                <li>尊重他人，禁止攻擊言論</li>
+                                <li>禁止違法內容或活動</li>
+                                <li>禁止垃圾訊息與惡意行為</li>
+                                <li>禁止未經授權發布他人資訊</li>
+                                <li>禁止未允許之商業廣告與不當推銷</li>
+                            </ol>
+                            <div class="form-check form-switch mt-2">
+                                <input class="form-check-input" type="checkbox" id="agreeCheck">
+                                <label class="form-check-label" for="agreeCheck">我已閱讀並同意以上守則</label>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label class="form-label">帳號</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">密碼</label>
+                                <input type="password" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">確認密碼</label>
+                                <input type="password" class="form-control">
+                            </div>
+                        </div>
+                    </div> <!-- /.row -->
+                </div> <!-- /.modal-body -->
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#loginModal"
+                        data-bs-dismiss="modal">已有帳號？登入</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">註冊</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================
+       S3：輪播（修正為 container 包裹）
+       - 重點：把圖片用 <img> 放入 container，左右留白一致
+       - 若你想要用 background-image，也可，但要注意 cover 與高度
+     ============================ -->
+    <section id="s3" class="my-4">
+        <div class="container px-0"> <!-- px-0 讓輪播寬度延展到 container 的左右邊緣（但不會到螢幕邊） -->
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <!-- 指示器 -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                        class="active" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+
+                <!-- 圖片（示範保留你原本圖片檔名：請把相對路徑圖片放好） -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="pictures/catmeme1.avif" class="d-block w-100" alt="標題1">
+                        <div class="carousel-caption d-none d-md-block carousel-caption-text">
+                            <h2>標題1</h2>
+                            <p class="h5">教程明星浪費簡介得知回家女性職業身體，吸引工程地址無法，將。</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="pictures/cat1.avif" class="d-block w-100" alt="標題2">
+                        <div class="carousel-caption d-none d-md-block carousel-caption-text">
+                            <h2>標題2</h2>
+                            <p class="h5">教程明星浪費簡介得知回家女性職業身體，吸引工程地址無法，將。</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="pictures/cat2.avif" class="d-block w-100" alt="標題3">
+                        <div class="carousel-caption d-none d-md-block carousel-caption-text">
+                            <h2>標題3</h2>
+                            <p class="h5">教程明星浪費簡介得知回家女性職業身體，吸引工程地址無法，將。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 控制鈕 -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">上一張</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">下一張</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+       S4：簡介區（保留結構，但用 container 確保左右對齊）
+     ============================ -->
+    <section id="s4" class="py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- 左側圖片：在 md 顯示，xs 則隱藏（d-none d-md-block） -->
+                <div class="col-md-5 bg-cover d-none d-md-block"
+                    style="background-image: url('pictures/meme1.avif'); height: 50vh;"></div>
+
+                <!-- 右側文字 -->
+                <div class="col-md-7 text-center text-md-start">
+                    <h1 class="mb-3">西元2025 <span class="text-success fw-700">全球首創</span></h1>
+                    <h2 class="mb-3">台灣在地農業經銷商</h2>
+                    <p class="h5 mb-3">許多一塊，幾次作戰為此，開口改進動力，有時都沒聯繫方式，考。</p>
+                    <div class="row mt-4">
+                        <div class="col-md-3">
+                            <div class="h6">生產廠商</div>
+                            <div class="h3 text-success fw-bold counter01">1000 <small class="text-primary">家</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="h6">站點位置</div>
+                            <div class="h3 text-success fw-bold counter02">368 <small class="text-primary">個鄉鎮市</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="h6">產品檢驗</div>
+                            <div class="h3 text-success fw-bold counter03"><span class="text-danger">5000</span> 項</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="h6">產品項目</div>
+                            <div class="h3 text-success fw-bold counter04">200 <small class="text-primary">項</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+       S5：三欄特色（保留）
+     ============================ -->
+    <section id="s5" class="py-4">
+        <div class="container bg-dark text-light py-3 rounded-3">
+            <div class="row text-center">
+                <div class="col-md-4 mb-3">
+                    <i class="fa-solid fa-alarm-clock fa-2x text-success"></i>
+                    <h3 class="fw-bold mt-2">守時</h3>
+                    <p class="d-none d-md-block">我們重視時效與準時交付。</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <i class="fa-regular fa-truck fa-2x text-success"></i>
+                    <h3 class="fw-bold mt-2">安全運輸</h3>
+                    <p class="d-none d-md-block">專業冷鏈與運輸保證商品品質。</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <i class="fa-solid fa-thumbs-up fa-2x text-success"></i>
+                    <h3 class="fw-bold mt-2">品質保證</h3>
+                    <p class="d-none d-md-block">符合 SGS 與政府相關檢驗標準。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+       S6：左圖右文（修正，改用 col 結構）
+       - 這是關鍵修正，原本絕對定位會導致圖片貼齊螢幕
+     ============================ -->
+    <section id="s6" class="py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- 左側封面圖，與 container 對齊，不再絕對定位-->
+                <div class="col-md-5 left-img bg-cover" style="background-image: url('pictures/bones1.avif');"></div>
+
+                <!-- 右側文字 -->
+                <div class="col-md-7">
+                    <h2 class="fw-bold">關於我們</h2>
+                    <p>
+                        代表增強放下引導避免營養，財政不承擔感染說話上市只是本文營養完整，魔獸已經官員負責承認等人中有第二輕鬆得到得知日常連續，責任毫不這場部落，加入必然通信基礎上農業浙江再也預計原文老公合適新型，國際部分通常物品一句話會不會召開要是生命阿宅人民共和國，創造一些。
+                    </p>
+                    <button class="btn btn-info">點擊查看更多</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="h4 text-03 fw-700 text-center my-3">歐美製作西部及。</div>
+                    <p>代表增強放下引導避免營養，財政不承擔感染說話上市只是本文營養完整，魔獸已經官員負責承認等人中有第二輕鬆得到得知日常連續，責任毫不這場部落，加入必然通信基礎上農業浙江再也預計原文老公合適新型，國際部分通常物品一句話會不會召開要是生命阿宅人民共和國，創造一些。
+                    </p>
+                </div>
+
+                <div class="col-6">
+                    <div class="h4 text-03 fw-700 text-center my-3">歐美製作西部及。</div>
+                    <p>代表增強放下引導避免營養，財政不承擔感染說話上市只是本文營養完整，魔獸已經官員負責承認等人中有第二輕鬆得到得知日常連續，責任毫不這場部落，加入必然通信基礎上農業浙江再也預計原文老公合適新型，國際部分通常物品一句話會不會召開要是生命阿宅人民共和國，創造一些。
+                    </p>
+                </div>
+            </div>
+    </section>
+
+    <!-- ============================
+       S7：主理人（保留你的圖片檔名）
+       - 照片使用 .s7-photo 並用 inline style 指定 background-image
+       - 你只要在 HTML 內換 url 就能變更照片（不需改 CSS）
+     ============================ -->
+    <section id="s7" class="py-4">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="display-6 fw-bold section-title">代理人介紹</h2>
+            </div>
+
+            <!-- row 1：大 Boss + 拉拉熊（保留你要的） -->
+            <div class="row align-items-center mb-3">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                        <i class="fa-regular fa-user fa-8x text-success col-2 me-3"></i>
+                        <div>
+                            <h3 class="h4">主理人：神秘大 Boss</h3>
+                            <p>通常不會出現在客戶面前，主要是老闆喜歡私底下找活幹，可能會變裝成某個員工觀察客戶反應。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                        <!-- inline style 更換圖片：lalabear.jpg -->
+                        <div class="s7-photo me-3 bg-cover" style="background-image: url('pictures/lalabear.jpg');">
+                        </div>
+                        <div>
+                            <h3 class="h4">主理人：拉拉熊祕書</h3>
+                            <p>提供大家心裡上的舒適感，並處理日常行政工作。雖然看起來像花瓶，但他本人也承認自己就是花瓶。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- row 2：迷因貓 + 龍蝦大師 -->
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-3">
+                    <div class="d-flex align-items-start">
+                        <div class="s7-photo me-3 bg-cover" style="background-image: url('pictures/catmeme1.avif');">
+                        </div>
+                        <div>
+                            <h3 class="h4">主理人：迷因貓經理</h3>
+                            <p>負責產品驗收與品質把關，對不合格產品會立即淘汰。雖然看起來不太情願，但他其實是全公司最認真的監督者。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="d-flex align-items-start">
+                        <div class="s7-photo me-3 bg-cover" style="background-image: url('pictures/lobistor.jpg');">
+                        </div>
+                        <div>
+                            <h3 class="h4">主理人：龍蝦大師</h3>
+                            <p>專精高階食材與海鮮分類，擅長在混亂中找到重點，是內部公認的「智慧型甲殼類」。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+       JS：Bootstrap + 你原本的 counter 腳本（略微整理）
+     ============================ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js"></script>
+
+    <script>
+        // ----------------------------
+        // counterUp 小功能（你原本的）
+        // - 注意：確認 DOM 上有 .counter01... 才會觀察到
+        // ----------------------------
+        const counterUp = window.counterUp?.default;
+        if (counterUp) {
+            const callback = entries => {
+                entries.forEach(entry => {
+                    const el = entry.target;
+                    if (entry.isIntersecting && !el.classList.contains('is-visible')) {
+                        counterUp(el, { duration: 2000, delay: 15 });
+                        el.classList.add('is-visible');
+                    }
+                });
+            };
+            const IO = new IntersectionObserver(callback, { threshold: 0.6 }); // threshold 0.6 在元素 60% 可見時觸發
+
+            document.querySelectorAll('.counter01, .counter02, .counter03, .counter04').forEach(el => IO.observe(el));
+        }
+
+        // ----------------------------
+        // 提示：若你想要在輪播上加上自動停頓、速度，可以使用 bootstrap 的 Carousel API
+        // 例如： const carousel = new bootstrap.Carousel(document.querySelector('#carouselExampleIndicators'), { interval: 5000 });
+        // ----------------------------
+    </script>
+</body>
+
+</html>

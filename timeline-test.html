@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>Timeline 左右交錯互動版</title>
+<style>
+body {
+    margin: 0;
+    padding: 60px 0;
+    font-family: Arial, sans-serif;
+    background: #f5f6fa;
+}
+
+/* Timeline 容器 */
+.timeline {
+    position: relative;
+    width: 80%;
+    margin: auto;
+}
+
+/* 中央線 */
+.timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background: #ccc;
+    transform: translateX(-50%);
+}
+
+/* 單列時間點 */
+.timeline-item {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    align-items: center;
+    margin: 80px 0;
+
+    /* scroll 初始狀態 */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all .6s ease;
+}
+
+/* scroll 出現後 */
+.timeline-item.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 時間點 */
+.timeline-dot {
+    justify-self: center;
+    width: 56px;
+    height: 56px;
+    background: #fff;
+    border: 4px solid #4CAF50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    z-index: 1;
+}
+
+/* 說明 */
+.timeline-content {
+    max-width: 320px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0,0,0,.15);
+    opacity: 0;
+    transition: opacity .4s ease;
+}
+
+/* 照片 */
+.timeline-photo img {
+    width: 100%;
+    max-width: 320px;
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0,0,0,.15);
+}
+
+/* hover 或 active → 顯示說明 */
+.timeline-item:hover .timeline-content,
+.timeline-item.active .timeline-content {
+    opacity: 1;
+}
+
+/* 左右交錯設定 */
+.timeline-item.left .timeline-content {
+    grid-column: 1;
+    justify-self: end;
+    text-align: right;
+}
+.timeline-item.left .timeline-photo {
+    grid-column: 3;
+    justify-self: start;
+}
+
+.timeline-item.right .timeline-content {
+    grid-column: 3;
+    justify-self: start;
+}
+.timeline-item.right .timeline-photo {
+    grid-column: 1;
+    justify-self: end;
+}
+
+/* 手機版直式 */
+@media (max-width: 768px) {
+    .timeline::before { left: 30px; transform: none; }
+    .timeline-item { grid-template-columns: 40px 1fr; margin: 60px 0; }
+    .timeline-dot { grid-column: 1; }
+    .timeline-content, .timeline-photo { grid-column: 2; text-align: left; justify-self: start; opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<section class="timeline">
+
+    <div class="timeline-item">
+        <div class="timeline-content">
+            <h3>2022</h3>
+            <p>專案發想與初期規劃。</p>
+        </div>
+        <div class="timeline-dot">1</div>
+        <div class="timeline-photo">
+            <img src="pictures/azululane.jpg">
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-photo">
+            <img src="pictures/azululane.jpg">
+        </div>
+        <div class="timeline-dot">2</div>
+        <div class="timeline-content">
+            <h3>2023</h3>
+            <p>完成設計與前後端開發。</p>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-content">
+            <h3>2024</h3>
+            <p>系統測試與正式上線。</p>
+        </div>
+        <div class="timeline-dot">3</div>
+        <div class="timeline-photo">
+            <img src="pictures/azululane.jpg">
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-photo">
+            <img src="pictures/azululane.jpg">
+        </div>
+        <div class="timeline-dot">4</div>
+        <div class="timeline-content">
+            <h3>2025</h3>
+            <p>持續優化與功能擴充。</p>
+        </div>
+    </div>
+
+</section>
+
+<script>
+/* 自動奇偶左右交錯 */
+document.querySelectorAll('.timeline-item').forEach((item, index) => {
+    if ((index + 1) % 2 === 1) {
+        item.classList.add('left');
+    } else {
+        item.classList.add('right');
+    }
+});
+
+/* hover 後留下 active */
+document.querySelectorAll('.timeline-item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+        item.classList.add('active');
+    });
+});
+
+/* scroll 出現動畫 */
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+        }
+    });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.timeline-item').forEach(item => {
+    observer.observe(item);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>農村地方美食小吃特色料理</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/my.css">
+    <style>
+        @media screen and (max-width: 768px){
+            body{
+                background-color: var(--color05);
+            }
+            .table-rwd thead{
+                display: none;
+            }
+            .table-rwd tbody tr{
+                display: block;
+                border: 1px solid var(--color11);
+                box-shadow: 1px 1px 5px 1px var(--color11);
+                border-radius: 5px;
+                margin-top: 20px;
+            }
+            .table-rwd tbody tr td{
+                display: block;
+            }
+            .table-rwd tbody tr td::before{
+                content: attr(data-th) " : ";
+                color: var(--color11);
+                font-weight: 900;
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table class="table table-rwd">
+            <thead>
+                <tr>
+                    <th width="10%">餐廳名稱</th>
+                    <th width="30%">餐廳圖片</th>
+                    <th width="15%">餐廳地址</th>
+                    <th width="15%">餐廳電話</th>
+                    <th width="30%">餐廳簡介</th>
+                </tr>
+            </thead>
+            <tbody id="mybody">
+                <tr>
+                    <td data-th="餐廳名稱"><span>xxx</span></td>
+                    <td data-th="餐廳圖片">
+                        <span><img src="images/landscape01.avif" class="img-fluid" alt=""></span>
+                    </td>
+                    <td data-th="餐廳地址"><span>xxx</span></td>
+                    <td data-th="餐廳電話"><span>xxx</span></td>
+                    <td data-th="餐廳簡介"><span class="text-truncate d-inline-block" style="max-width: 320px;">好像有權日前休閒加大，女人江湖湖北新型至少發行同時相關，物品幫忙總統法人是從躺在最多認識真正告訴我變化春天，隨便廣大教程這一，處理人家台北歲月案件我看，歡迎運用背景報價股票暴力網頁班上班右鍵一份如果你領域先進重視，禁止就業宅宅全部在於根本同事處理結合，收集部落格旁邊主演反覆民間圖象，一大收費家長，認證有人活動，天地特別服裝親自改進，拿出頁面，綠色下一頁，就是版主超市二級試題觀念，稿件多個，版主從。</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+        $(function(){
+            //載入資料
+            $.ajax({
+                type: "GET",
+                url: "js/json/TravelFood.json",
+                dataType: "json",
+                success: showdata,
+                error: function(){
+                    console.log("連線錯誤!");
+                }
+            });
+        });
+
+        function showdata(data){
+            console.log(data);
+            //方法二
+            data.forEach((item, key) => {
+                // console.log(item);
+                // console.log(key);
+                let myimg;
+                if(item.PicURL == ""){
+                    myimg = 'images/ACL037300.jpg';
+                }else{
+                    myimg = item.PicURL;
+                }
+
+                let strHTML = `<tr>
+                                <td data-th="餐廳名稱"><span>${item.Name}</span></td>
+                                <td data-th="餐廳圖片">
+                                    <span><img src="${myimg}" class="img-fluid" alt=""></span>
+                                </td>
+                                <td data-th="餐廳地址"><span>${item.Address}</span></td>
+                                <td data-th="餐廳電話"><span>${item.Tel}</span></td>
+                                <td data-th="餐廳簡介"><span class="text-truncate d-inline-block" style="max-width: 320px;">${item.HostWords}</span></td>
+                            </tr>`;
+                $("#mybody").append(strHTML);
+            });
+
+        }
+    </script>
+</body>
+</html>

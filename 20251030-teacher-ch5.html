@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ch5. table(表格)</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/my.css">
+    <style>
+        @media screen and (max-width: 768px){
+            .table-rwd thead{
+                display: none;
+            }
+            .table-rwd tbody tr{
+                display: block;
+                border: 1px solid var(--color07);
+                margin-top: 15px;
+                border-radius: 10px;
+                box-shadow: 1px 2px 4px 2px var(--color07);
+            }
+            .table-rwd tbody tr td{
+                display: block;
+                overflow: hidden;
+            }
+            .table-rwd tbody tr td::before{
+                content: attr(data-th) " : ";
+                color: var(--color07);
+                font-weight: 900;
+                font-size: 18px;
+                display: block;
+                float: left;
+                width: 25%;
+                text-align: right;
+                padding-right: 15px;
+            }
+            .table-rwd tbody tr td span{
+                display: block;
+                float: left;
+                width: 75%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="display-2 fw-900 text-center">物料列表</div>
+        <table class="table table-rwd table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th width="10%">店家編號</th>
+                    <th width="10%">店家名稱</th>
+                    <th width="30%">店家圖片</th>
+                    <th width="10%">店家地址</th>
+                    <th width="10%">店家電話</th>
+                    <th width="30%">店家說明</th>
+                </tr>
+            </thead>
+            <tbody id="mybody">
+                <tr>
+                    <td data-th="店家編號"><span>001</span></td>
+                    <td data-th="店家名稱"><span>美式咖啡</span></td>
+                    <td data-th="店家圖片">
+                        <span><img src="images/cake001.jpg" class="img-fluid img-thumbnail" alt=""></span>
+                    </td>
+                    <td data-th="店家地址"><span>50</span></td>
+                    <td data-th="店家電話"><span>20</span></td>
+                    <td data-th="店家說明"><span>深烘培 首頁創作的確，對不起環節明年你就和我，就是功夫學科版本醫療學者，模擬學術，自主隊伍成為，廠商之家那。</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+        //主程式
+        $(function(){
+            // console.log("Hello world!");
+
+            //抓取外部檔案
+            $.ajax({
+                type: "GET",
+                url: "https://data.moa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx?IsTransData=1&UnitId=193",
+                dataType: "json",
+                success: showdata,
+                error: function(){
+                    console.log("連線失敗!");
+                }
+            });
+        });
+
+        function showdata(data){
+            console.log(data);
+
+            // $("#mybody").empty();
+            for(let i=0; i<data.length; i++){
+                // console.log(i + " : " + data[i].Name);
+                // console.log(i + " : " + data[i].Address);
+                // console.log(i + " : " + data[i].Tel);
+
+                let strHTML = `<tr>
+                                <td data-th="店家編號"><span>${i +1 }</span></td>
+                                <td data-th="店家名稱"><span>${data[i].Name}</span></td>
+                                <td data-th="店家圖片">
+                                    <span><img src="${data[i].PicURL}" class="img-fluid img-thumbnail" alt=""></span>
+                                </td>
+                                <td data-th="店家地址"><span>${data[i].Address}</span></td>
+                                <td data-th="店家電話"><span>${data[i].Tel}</span></td>
+                                <td data-th="店家說明"><span>${data[i].HostWords}</span></td>
+                            </tr>`;
+                $("#mybody").append(strHTML);
+            }
+        }
+    </script>
+</body>
+</html>

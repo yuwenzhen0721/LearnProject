@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<!-- 語言使用繁體中文 -->
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS語法版面配置</title>
+    <!-- 從檔案中找到我們需要的CSS(顏色與字體) -->
+    <link rel="stylesheet" href="CSS/color1.css">
+    <style>
+        /* 整個頁面 */
+        body {
+            background-color: var(--color01);
+        }
+        /* 大框的規格(寬度與置中) */
+        .wapper {
+            width: 1024px;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* 大標 */
+        .logo{
+            /* 寬度 */
+            width: 1024px;
+            /* 高度 */
+            height: 300px;
+            /* 背景顏色 */
+            background-color: var(--color06);
+            /* 背景使用照片 */
+            background-image: url(pictures/cat2.avif);
+            /* 背景顯示位置 */
+            background-position: center center;
+            /* 背景顯示大小 */
+            background-size: cover;
+        }
+        /* 要怎麼顯示中標 */
+        nav {
+            background-color: var(--color05);
+            /* 文字置中 */
+            text-align: center;
+        }
+        
+        nav ul {
+            /* 將文字轉為一條線性方向 */
+            display: inline-block;
+        }
+
+        nav ul li {
+            /* 文字轉為橫向 */
+            float: left;
+            /* 把前方的標記去除掉 */
+            list-style-type: none;
+        }
+
+        nav ul li a {
+            /* 去除下橫線 */
+            text-decoration: none;
+            display: block;
+            background-color: var(--color03);
+            /* 與內部距離(上下左右) */
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-left: 20px;
+            padding-right: 20px;
+            /* 與外部距離 */
+            margin-right: 20px;
+            /* 圓角 */
+            border-radius: 10px;
+            /* 陰影 */
+            box-shadow: 5px 5px 10px 0px var(--color07);
+            color: var(--color06);
+            /* 字體大小 */
+            font-size: 15px;
+            /* 字體加粗 */
+            font-weight: bolder;
+        }
+        
+        nav ul li a:hover {
+            /* 陰影 */
+            box-shadow: 0px 0px 5px 1px var(--color08);
+        }
+
+        .content {
+            /* 左邊內部距離 */
+            padding-left: 20px;
+            /* 右邊內部距離 */
+            padding-right: 20px;
+            /* 上方內部距離 */
+            padding-top: 50px;
+        }
+
+        .content h1 {
+            /* 文字位置 */
+            text-align: center;
+            /* 字體大小 */
+            font-size: 45px;
+            /* 顏色 */
+            color: var(--color04);
+        }
+
+        .content p {
+            /* 字體大小 */
+            font-size: 20px;
+            /* 底部外部距離 */
+            margin-bottom: 40px;
+        }
+
+        .content a {
+            display: block;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-left: auto;
+            margin-right: auto;
+            width: 130px;
+            height: 60px;
+            background-color: var(--color05);
+            text-align: center;
+            text-decoration: none;
+            color: #f7f7f7;
+            font-size: 24px;
+            font-weight: bolder;
+            /* 垂直置中 */
+            line-height: 60px;
+            /* 圓角 */
+            border-radius: 10px;
+            /* 陰影 */
+            box-shadow: 5px 5px 10px 0px var(--color07);
+        }
+
+        .content a:hover {
+            box-shadow: 0px 0px 5px 1px var(--color08);
+        }
+
+        .footer {
+            background-color: var(--color05);
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-size: 24px;
+            color: var(--color06);
+            font-weight: bolder;
+        }
+
+        /* RWD(響應式網頁設計)語法 手機:768px */
+        @media screen and (max-width:768px) {
+            /* 手機板的間距調整 */
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            .wapper{
+                width: 100%;
+            }
+            .logo{
+                width: 100%;
+                height: 180px;
+                background-image: url(pictures/meme1.avif);
+            }
+            nav ul{
+                display: block;
+            }
+            nav ul li{
+                float: none;
+            }
+            nav ul li a{
+                margin-top: 2px;
+                padding-top: 2px;
+                padding-bottom: 2px;
+                font-size: 15px;
+            }
+            .content h1 {
+            font-size: 15px;
+            }
+            .content p {
+            font-size: 10px;
+            margin-bottom: 20px;
+            }
+            .content a {
+            width: 65px;
+            height: 30px;
+            font-size: 12px;
+            line-height: 30px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px 0px var(--color07);
+            }
+            .footer {
+            margin-top: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 12px;
+        }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wapper">
+        <div class="banner">
+            <!-- 首頁圖片 -->
+            <div class="logo"></div>
+
+            <!-- 選單按鈕 -->
+            <nav>
+                <ul>
+                    <li><a href="#">首頁</a></li>
+                    <li><a href="#">最新消息</a></li>
+                    <li><a href="#">合作店家</a></li>
+                    <li><a href="#">關於我們</a></li>
+                    <li><a href="#">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="content">
+            <h1 class="fw-700">歡迎光臨</h1>
+            <p class="fw-300">&nbsp;恐怖道德，證據當前他說雖然行政，屏東深深圖片長沙家電傳真激情一點一套戰爭試題一時多多，實用第二天台北運輸有限責任公司，元素一是客人下來全新接觸權限女朋友不是，台鐵發現類型或是總經理有意唱片，新竹說話。
+            </p>
+            <p class="fw-300">&nbsp;作品出版鮮花能源告訴漂亮一般形勢實際上一件國人共有浙江淡淡，登錄說出進度，寂寞是以重新初音打印看不到勝利看不到機關生存成人大學，讓人男人重新巨大，資金速度起點屏東卻是畢竟介紹查詢資源鐵路，兩人隨便網址有着請您但我我的心國有加盟永遠今年平台，看了留學總算再說，手機鈴聲，嚴格告訴你絶不東京可憐小說可惜科技，小學慢慢一部直到共享版友情連結一流奧客就能業績看來正是，一下子根本我只一部分打造資訊網，兩次病人承諾不足戀愛污染飛機新型太多不出那時忘記確保，開始登陸等級孩子寫作，法院形勢，先後大多數鎖定，怎麼會詳細基層情緒兩人即使用戶名轎車吸引得到有限責任批評，股份一段還會瘋狂獲得還有社會主義家長，年齡空氣。
+            </p>
+            <p class="fw-700">&nbsp;中壢引擎說明不要面向滿意孩子南方到底真正兩位工程，二人三人黃金至少今日引發那天機關難得在我付款，感受鏡頭近日逐漸，女性是在人體突出我和取消存款一身會不會兩個試試這麼多效率，裝置不用不想口氣周邊便是定位權益一個建議，備案一句話異常知道，是怎麼求職原料，大力。
+            </p>
+            <a href="#">了解更多</a>
+        </div>
+        <div class="footer">
+            PowerBy 全端程式設計班 2025.10.23
+        </div>
+    </div>
+
+</body>
+
+</html>

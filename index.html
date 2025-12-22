@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大乙的個人首頁</title>
+    <link rel="stylesheet" href="css/mycss.css">
+    <link rel="stylesheet" href="css/color-chatgpt1.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="css/table-rwd.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        .wrapper {
+            width: 100vw;
+            margin: 0 auto;
+        }
+
+        .header {
+            height: 100vh;
+            background-color: #fdf3e0;
+            position: relative;
+        }
+
+
+        .box01 {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            top: 0;
+            left: 0;
+            background-color: #ff8989;
+        }
+
+        .box02 {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            top: 0;
+            right: 0;
+            background-color: #fff789;
+        }
+
+        .box03 {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            bottom: 0;
+            left: 0;
+            background-color: #aaff89;
+        }
+
+        .box04 {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            bottom: 0;
+            right: 0;
+            background-color: #89f7ff;
+        }
+
+        .userbox {
+            position: absolute;
+            top: 75px;
+            bottom: 75px;
+            left: 75px;
+            right: 75px;
+            background-color: var(--color03);
+            background-image: url(pictures/azululane.jpg);
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: auto;
+            box-shadow: 2px 2px 10px 5px var(--color05);
+        }
+
+        .usertext {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .usertext h1 {
+            font-size: 60px;
+            padding: 15px;
+            color: var(--color06);
+        }
+
+        .usertext h2 {
+            font-size: 30px;
+            color: var(--color06);
+        }
+
+        .portfolio-card {
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: .35s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+        }
+
+        .portfolio-img {
+            overflow: hidden;
+        }
+
+        .portfolio-img img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: .4s ease;
+        }
+
+        .portfolio-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-text {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .portfolio-text h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .portfolio-text p {
+            font-size: 15px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <div class="box01"></div>
+            <div class="box02"></div>
+            <div class="box03"></div>
+            <div class="box04"></div>
+            <div class="userbox"></div>
+            <div class="usertext">
+                <h1 class="fw-700">全端程式設計</h1>
+                <h2 class="fw-400">2025/10~2026/01</h2>
+            </div>
+        </div>
+
+        <div class="content bgm-y py-5">
+            <div class="container">
+                <h2 class="text-center text-light fw-700 mb-5 wow fadeInUp">大乙的作品集</h2>
+
+                <div class="row g-4">
+                    <!-- 卡片 1 -->
+                    <div class="col-lg-4 col-md-6 mt-4">
+                        <div class="portfolio-card wow zoomIn">
+                            <div class="portfolio-img">
+                                <img src="pictures/cat2.avif" alt="">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>作品 1</h3>
+                                <a href="20251023-1.html" target="_blank" rel="noopener noreferrer">第一次CSS版面配置</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片 2 -->
+                    <div class="col-lg-4 col-md-6 mt-4">
+                        <div class="portfolio-card wow zoomIn" data-wow-delay="0.2s">
+                            <div class="portfolio-img">
+                                <img src="pictures/run1.jpg" alt="">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>作品 2</h3>
+                                <a href="20251028-1.html" target="_blank" rel="noopener noreferrer">路跑網站建制</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片 3 --> 
+                    <div class="col-lg-4 col-md-6 mt-4">
+                        <div class="portfolio-card wow zoomIn" data-wow-delay="0.4s">
+                            <div class="portfolio-img">
+                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>作品 3</h3>
+                                <a href="去海邊旅遊.html" target="_blank" rel="noopener noreferrer">以路跑網站練習為基礎建制的旅遊網站</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片 4 --> 
+                    <div class="col-lg-4 col-md-6 mt-4">
+                        <div class="portfolio-card wow zoomIn" data-wow-delay="0.4s">
+                            <div class="portfolio-img">
+                                <img src="pictures/montan2.jpg" alt="">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>作品 4</h3>
+                                <a href="20251030-2.html" target="_blank" rel="noopener noreferrer">鄉村旅遊開放式資料建制</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片 5 --> 
+                    <div class="col-lg-4 col-md-6 mt-4">
+                        <div class="portfolio-card wow zoomIn">
+                            <div class="portfolio-img">
+                                <img src="pictures/eggsala.jpg" alt="">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>作品 5</h3>
+                                <a href="20251106-3.html" target="_blank" rel="noopener noreferrer">網頁切版練習</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片 6 -->
+                    <div class="col-lg-4 col-md-6 mt-4">
+                        <div class="portfolio-card wow zoomIn" data-wow-delay="0.2s">
+                            <div class="portfolio-img">
+                                <img src="pictures/meme1.avif" alt="">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>作品 6</h3>
+                                <a href="20251106-4.html" target="_blank" rel="noopener noreferrer">時間軸排版練習</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片 7 --> 
+                    <div class="col-lg-4 col-md-6 mt-4">
+                        <div class="portfolio-card wow zoomIn" data-wow-delay="0.4s">
+                            <div class="portfolio-img">
+                                <img src="pictures/sala.jpg" alt="">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>作品 7</h3>
+                                <a href="20251114test.html" target="_blank" rel="noopener noreferrer">建立填寫表單</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片 8 --> 
+                    <div class="col-lg-4 col-md-6 mt-4">
+                        <div class="portfolio-card wow zoomIn" data-wow-delay="0.4s">
+                            <div class="portfolio-img">
+                                <img src="pictures/Gemini.interprizer.png" alt="">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>作品 8</h3>
+                                <a href="20251118.html" target="_blank" rel="noopener noreferrer">專題作業原始版</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片 9 --> 
+                    <div class="col-lg-4 col-md-6 mt-4">
+                        <div class="portfolio-card wow zoomIn" data-wow-delay="0.4s">
+                            <div class="portfolio-img">
+                                <img src="pictures/Gemini-enterprisevalue.png" alt="">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>作品 9</h3>
+                                <a href="202512importantv1.html" target="_blank" rel="noopener noreferrer">專題作業第二彈改進版</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片 10 --> 
+                    <div class="col-lg-4 col-md-6 mt-4">
+                        <div class="portfolio-card wow zoomIn" data-wow-delay="0.4s">
+                            <div class="portfolio-img">
+                                <img src="pictures/Gemini_flower.png" alt="">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>作品 10</h3>
+                                <a href="1209v3.html" target="_blank" rel="noopener noreferrer">專題作業第三彈改進版</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</body>
+
+</html>

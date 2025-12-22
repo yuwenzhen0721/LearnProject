@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>賣菜網站註冊版</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/color-chatgpt1.css">
+    <link rel="stylesheet" href="css/mycss.css">
+    <link rel="stylesheet" href="css/table-rwd.css">
+
+    <style>
+        /* ==========================================================================1️⃣ 固定 s1 + s2（Sticky Header）========================================================================== */
+        #s1,
+        #s2 {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        #s1 {
+            background-color: #f7f1e5;
+            color: #444;
+        }
+
+        #s2 .navbar {
+            background-color: #ffffff;
+        }
+
+        /* ==========================================================================2️⃣ 全站配色與文字風格========================================================================== */
+        body {
+            font-family: "Noto Sans TC", sans-serif;
+            background-color: #fdf8f2;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: #2a2a2a;
+        }
+
+        a {
+            color: #2f855a;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        a:hover {
+            color: #276749;
+        }
+
+        /* Buttons */
+        .btn-success {
+            background-color: #2f855a;
+            border-color: #276749;
+        }
+
+        .btn-success:hover {
+            background-color: #276749;
+            border-color: #22543d;
+        }
+
+        .btn-warning {
+            background-color: #d69e2e;
+            border-color: #b7791f;
+        }
+
+        .btn-warning:hover {
+            background-color: #b7791f;
+            border-color: #975a16;
+        }
+
+        /* ==========================================================================3️⃣ 卡片、FAQ、Timeline 美化========================================================================== */
+        .news-card,
+        .faq-item,
+        .timeline-section-pointer {
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        /* FAQ 容器 */
+        .faq-item {
+            background: var(--morandi-teal-dark);
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        /* 隱藏答案 */
+        .faq-answer {
+            display: none;
+            padding-top: 10px;
+            color: #ddd;
+            line-height: 1.6;
+        }
+
+        /* Hover 提升效果 */
+        .news-card:hover,
+        .faq-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* FAQ 展開箭頭 */
+        .faq-item::after {
+            content: "▼";
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .faq-item.active::after {
+            transform: rotate(180deg);
+        }
+
+        /* Timeline 主線 */
+        .timeline-section {
+            position: relative;
+        }
+
+        .timeline-section::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            width: 1px;
+            background-color: var(--green-18);
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        /* Timeline 圓點 */
+        .timeline-section-pointer {
+            position: relative;
+        }
+
+        .timeline-section-pointer::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--morandi-yellow-dark);
+            border-radius: 10px;
+            left: 50%;
+            transform: translate(-50%);
+            border: 5px solid var(--green-5);
+        }
+
+        /* ==========================================================================4️⃣ Section 3（大輪播）========================================================================== */
+        .s3-carousel-item {
+            height: 80vh;
+            min-height: 400px;
+            position: relative;
+        }
+
+        /* ⚠️ 修正：background-color 不支援 linear-gradient */
+        .s3-carousel-item::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg,
+                    rgba(0, 0, 0, 0.1),
+                    rgba(0, 0, 0, 0.5));
+        }
+
+        .s3-carousel-caption-box {
+            position: absolute;
+            left: 20%;
+            bottom: 25%;
+            max-width: 900px;
+            text-align: left;
+        }
+
+        .s3-carousel-badge {
+            color: #c0a615;
+            border: 1px solid rgba(255, 160, 8, 0.5);
+            border-radius: 999px;
+            padding: 4px;
+            font-size: 0.85rem;
+            letter-spacing: 0.2rem;
+            display: inline-block;
+        }
+
+        /* ==========================================================================5️⃣ Section 7（照片區）========================================================================== */
+        .s7-photo {
+            width: 150px;
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 30px;
+            transition: transform 1s;
+        }
+
+        .s7-photo:hover {
+            transform: scale(1.2);
+            box-shadow: 3px 3px 10px 3px var(--blue-20);
+        }
+
+        /* ==========================================================================6️⃣ Section 10（文字區塊）========================================================================== */
+        .s10-text {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 2px 2px 10px 0px #df9d9d;
+            margin: 15px 0;
+            color: #dddddd;
+        }
+
+        /* ==========================================================================7️⃣ 最新消息卡片（News Card）========================================================================== */
+        .news-card {
+            background: var(--morandi-teal-dark);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .s13-text,
+        .s15-text {
+            color: var(--violet-18);
+        }
+
+        /* ==========================================================================8️⃣ Back to Top========================================================================== */
+        #backToTop {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            border: none;
+            background-color: var(--morandi-green-dark);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: .4s ease;
+            z-index: 999;
+        }
+
+        #backToTop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ==========================================================================9️⃣ RWD 響應式調整========================================================================== */
+        @media screen and (max-width: 1200px) {
+            .carousel-caption-box {
+                left: 10%;
+                max-width: 80%;
+            }
+        }
+
+        @media screen and (max-width: 992px) {
+            .carousel-caption-box {
+                left: 5%;
+                max-width: 90%;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+
+            .timeline-section::before,
+            .timeline-section-pointer::before {
+                display: none;
+            }
+
+            .faq-item {
+                padding: 15px;
+                font-size: 14px;
+            }
+
+            .carousel-caption-box {
+                bottom: 10%;
+                text-align: center;
+                left: 5%;
+                right: 5%;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+
+            #s1 a,
+            #s2 .nav-link {
+                font-size: 0.85rem;
+            }
+
+            .news-card img {
+                height: 150px;
+                object-fit: cover;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- s1 頂部通知列 -->
+    <section id="s1">
+        <div class="container text-end py-2">
+            <a href="#" class="not-ready"><i class="fa-brands fa-facebook fa-2x"></i></a>
+            <a href="#" class="not-ready"><i class="fa-brands fa-instagram fa-2x"></i></a>
+            <a href="#" class="not-ready"><i class="fa-brands fa-line fa-2x"></i></a>
+        </div>
+    </section>
+
+    <!-- s2 導覽列 -->
+    <section id="s2">
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+            <div class="container">
+                <a class="navbar-brand text-success" href="#"><i class="fa-brands fa-pagelines fa-2x"></i> MiNi商店</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link not-ready" href="#">關於我們</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">農產品專區</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item not-ready" href="#">水果</a></li>
+                                <li><a class="dropdown-item not-ready" href="#">蔬菜</a></li>
+                                <li><a class="dropdown-item not-ready" href="#">菇類</a></li>
+                                <li><a class="dropdown-item not-ready" href="#">種苗</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item not-ready" href="#">其他</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="d-flex">
+                        <span class="text-03 h3 me-2 d-none" id="s2_menber_span">
+                            會員:<span class="text-03 fw-900 h2">xxx</span>
+                        </span>
+                        <button class="btn btn-primary d-none" id="s2_controlbtn" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">控制台</button>
+                        <button class="btn btn-danger d-none me-2" id="s2_logoutbtn" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">登出</button>
+                        <button class="btn btn-success me-2" id="s2_loginbtn" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">登入</button>
+                        <button class="btn btn-warning" id="s2_registerbtn" data-bs-toggle="modal"
+                            data-bs-target="#registerModal">註冊</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </section>
+
+    <!-- loginModal 1120完成-->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-bg-warning">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">會員登入</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="" class="form-label">帳號</label>
+                        <input type="text" class="form-control is-invalid" id="l_userName">
+                        <div class="valid-feedback" id="r_userName-valid-feedback">帳號符合規定!</div>
+                        <div class="invalid-feedback" id="r_userName-invalid-feedback">帳號不符合規定!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">密碼</label>
+                        <input type="password" class="form-control" id="l_password">
+                        <div class="valid-feedback">密碼符合規定</div>
+                        <div class="invalid-feedback">密碼不符合規定</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal" class="me-auto">未註冊帳號</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="l_btn_ok">登入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- registerModal 1120完成-->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header text-bg-warning">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">會員註冊</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body timeline-section">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="h3 fw-700">會員守則</div>
+                            <p>1. 尊重他人，禁止攻擊言論</p>
+                            <p>2. 禁止違法內容或活動</p>
+                            <p>3. 禁止垃圾訊息與惡意行為</p>
+                            <p>4. 禁止未經授權發布他人資訊</p>
+                            <p>5. 禁止未允許之商業廣告與不當推銷</p>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" name="" id="" class="form-check-input">
+                                <label for="" class="form-check-label">不同意/同意</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="" class="form-label">帳號</label>
+                                <input type="text" class="form-control is-invalid" id="r_userName">
+                                <div class="valid-feedback" id="r_userName-valid-feedback">帳號符合規定!</div>
+                                <div class="invalid-feedback" id="r_userName-invalid-feedback">帳號不符合規定!</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">email</label>
+                                <input type="text" class="form-control is-invalid" id="r_email">
+                                <div class="valid-feedback">信箱符合規定!</div>
+                                <div class="invalid-feedback">信箱不符合規定!</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">密碼</label>
+                                <input type="password" class="form-control is-invalid" id="r_password">
+                                <div class="valid-feedback">密碼符合規定!</div>
+                                <div class="invalid-feedback">密碼不符合規定!</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">確認密碼</label>
+                                <input type="password" class="form-control is-invalid" id="r_retype_password">
+                                <div class="valid-feedback">密碼一致!</div>
+                                <div class="invalid-feedback">密碼不一致!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="me-auto">已有註冊帳號</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="r_btn_ok">註冊</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- s3 v2 carousel 照片輪播 -->
+    <section id="s3">
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1">
+                </button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2">
+                </button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3">
+                </button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+                    aria-label="Slide 4">
+                </button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"
+                    aria-label="Slide 5">
+                </button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active bg-cover"
+                    style="background-image: url(pictures/Gemini_vegetables.png); height: 85vh;">
+                    <div class="carousel-caption d-none d-md-block bg-dark carousel-caption-box bg-opacity-50 p-4 rounded-3 shadow-lg wow animate__fadeInLeft"
+                        data-wow-duration="2s" data-wow-delay="0s" data-wow-iteration="1">
+                        <div class="carousel-badge"><i class="fa-solid fa-briefcase me-1 text-warning"></i>好評熱銷中</div>
+                        <div class="h1 fw-700 my-3">新鮮蔬菜</div>
+                        <p class="mb-3 text-white-50">全部採用有機的方式栽培，期間不噴農藥，保障水源穩定，日夜溫差大造就蔬菜清脆爽口，且種類繁多，保證營養均衡</p>
+                        <div class="corousel-list text-white-50 mb-3">
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>青江菜</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>高麗菜</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>大白菜</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>其他</div>
+                        </div>
+                        <button class="btn btn-warning not-ready"><i
+                                class="fa-solid fa-calendar-check"></i>點擊預約</button>
+                        <button class="btn btn-outline-light not-ready"><i
+                                class="fa-solid fa-cloud-arrow-down"></i>點擊查看生長進度</button>
+                    </div>
+                </div>
+                <div class="carousel-item bg-cover"
+                    style="background-image: url(pictures/Gemini_fruits.png); height: 85vh;">
+                    <div class="carousel-caption d-none d-md-block bg-dark carousel-caption-box bg-opacity-50 p-4 rounded-3 shadow-lg wow animate__fadeInLeft"
+                        data-wow-duration="2s" data-wow-delay="0s" data-wow-iteration="1">
+                        <div class="carousel-badge"><i class="fa-solid fa-briefcase me-1 text-warning"></i>好評熱銷中</div>
+                        <div class="h1 fw-700 my-3">水果盛宴</div>
+                        <p class="h3">當季水果，甜度遠超平均，同時採用有機方式種植，造就無與倫比的味覺衝擊</p>
+                        <div class="carousel-list text-white-50 mb-3">
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>芒果(季節限定)</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>香蕉</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>木瓜</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>其他</div>
+                        </div>
+                        <button class="btn btn-warning not-ready"><i
+                                class="fa-solid fa-calendar-check"></i>點擊預約</button>
+                        <button class="btn btn-outline-light not-ready"><i
+                                class="fa-solid fa-cloud-arrow-down"></i>點擊查看生長進度</button>
+                    </div>
+                </div>
+                <div class="carousel-item bg-cover"
+                    style="background-image: url(pictures/Gemini_mushroom.png); height: 85vh;">
+                    <div class="carousel-caption d-none d-md-block bg-dark carousel-caption-box bg-opacity-50 p-4 rounded-3 shadow-lg wow animate__fadeInLeft"
+                        data-wow-duration="2s" data-wow-delay="0s" data-wow-iteration="1">
+                        <div class="carousel-badge"><i class="fa-solid fa-briefcase me-1 text-warning"></i>好評熱銷中</div>
+                        <div class="h1 fw-700 my-3">菇菇天堂</div>
+                        <p class="h3">菇類愛好者的必到之處，產自台中新社的香菇，品質絕對是上上品，且各色香菇</p>
+                        <div class="carousel-list text-white-50 mb-3">
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>杏炮菇</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>黑木耳</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>香菇</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>其他</div>
+                        </div>
+                        <button class="btn btn-warning not-ready"><i
+                                class="fa-solid fa-calendar-check"></i>點擊預約</button>
+                        <button class="btn btn-outline-light not-ready"><i
+                                class="fa-solid fa-cloud-arrow-down"></i>點擊查看生長進度</button>
+                    </div>
+                </div>
+                <div class="carousel-item bg-cover"
+                    style="background-image: url(pictures/Gemini_flower.png); height: 85vh;">
+                    <div class="carousel-caption d-none d-md-block bg-dark carousel-caption-box bg-opacity-50 p-4 rounded-3 shadow-lg wow animate__fadeInLeft"
+                        data-wow-duration="2s" data-wow-delay="0s" data-wow-iteration="1">
+                        <div class="carousel-badge"><i class="fa-solid fa-fire me-1 text-warning"></i>熱門版面</div>
+                        <div class="h1 fw-700 my-3">綺麗花朵</div>
+                        <p class="h3">花朵不語卻最懂人心，以花築夢，綻放專屬你的浪漫時光</p>
+                        <div class="carousel-list text-white-50 mb-3">
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>一花一世界</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>常見花卉</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>多肉植物</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>其他</div>
+                        </div>
+                        <button class="btn btn-warning not-ready"><i
+                                class="fa-solid fa-calendar-check"></i>點擊預約</button>
+                        <button class="btn btn-outline-light not-ready"><i
+                                class="fa-solid fa-cloud-arrow-down"></i>點擊查看數量</button>
+                    </div>
+                </div>
+                <div class="carousel-item bg-cover"
+                    style="background-image: url(pictures/Gemini_seed.png); height: 85vh;">
+                    <div class="carousel-caption d-none d-md-block bg-dark carousel-caption-box bg-opacity-50 p-4 rounded-3 shadow-lg wow animate__fadeInLeft"
+                        data-wow-duration="2s" data-wow-delay="0s" data-wow-iteration="1">
+                        <div class="carousel-badge"><i class="fa-solid fa-fire me-1 text-warning"></i>熱門版面</div>
+                        <div class="h1 fw-700 my-3">優良種苗</div>
+                        <p class="h3">從小苗開始，為生活添一抹綠；讓自然在家中慢慢長成一座小森林</p>
+                        <div class="carousel-list text-white-50 mb-3">
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>蔬菜苗</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>仙人掌</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>樹苗</div>
+                            <div class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>其他</div>
+                        </div>
+                        <button class="btn btn-warning not-ready"><i
+                                class="fa-solid fa-calendar-check"></i>點擊預約</button>
+                        <button class="btn btn-outline-light not-ready"><i
+                                class="fa-solid fa-cloud-arrow-down"></i>點擊查看數量</button>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+    </section>
+
+    <!-- s4 標語 1203完成-->
+    <section id="s4">
+        <div class="row align-items-center">
+            <div class="col-md-5 bg-cover d-none d-md-block"
+                style="background-image: url(pictures/Gemini.interprizer.png); height: 50vh; animation-name: pulse; animation-duration: 2s; animation-delay: 0s; animation-iteration-count: 1;">
+            </div>
+            <div class="col-md-7 text-center text-md-start">
+                <div class="h1 mb-3 mt-3">西元2025<span class="text-success fw-700">全球首創</span></div>
+                <div class="h1 mb-3 mt-3">台灣在地農業經銷商</div>
+                <p class="h3 mb-3">「新鮮直送，安心每一口」</p>
+                <p class="h3 mb-3">「自然耕作，健康生活」</p>
+                <p class="h3 mb-3">「從田間到餐桌的承諾」</p>
+                <div class="row mt-5">
+                    <div class="col-md-3">
+                        <div class="h4">生產廠商</div>
+                        <div class="h2 text-success fw-700 counter01 mb-3">1000<span class="h4 text-primary">家</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="h4">站點位置</div>
+                        <div class="h2 text-success fw-700 counter02 mb-3">368<span
+                                class="h4 text-primary">個鄉鎮市都有</span></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="h4">產品檢驗</div>
+                        <div class="h2 text-success fw-700 counter03 mb-3"><span
+                                class=" text-danger">5000</span>項SGS、衛福部及農業部認證</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="h4">產品項目</div>
+                        <div class="h2 text-success fw-700 counter04 mb-3">200<span class="h4 text-primary">項</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- s5 企業精神 1203完成-->
+    <section id="s5">
+        <div class="bgm-g">
+            <div class="row">
+                <div class="col-md-4 text-center mb-3 mt-3">
+                    <i class="fa-solid fa-truck  fa-2x s5-text1"></i>
+                    <div class="h1 fw-700 mt-3"><span class="s5-text2">新鮮直送</span></div>
+                    <p class="mt-3 text-light d-none d-md-block">每天挑選優質農產，確保最短配送時間，保留食材原始風味</p>
+                </div>
+                <div class="col-md-4 text-center mb-3 mt-3">
+                    <i class="fa-solid fa-seedling fa-2x s5-text1"></i>
+                    <div class="h1 fw-700 mt-3"><span class="s5-text2">有機栽培</span></div>
+                    <p class="mt-3 text-light d-none d-md-block">採用友善環境的種植方式，減少農藥與化學添加，健康更安心</p>
+                </div>
+                <div class="col-md-4 text-center mb-3 mt-3">
+                    <i class="fa-solid fa-thumbs-up fa-2x s5-text1"></i>
+                    <div class="h1 fw-700 mt-3"><span class="s5-text2">品質保證</span></div>
+                    <p class="mt-3 text-light d-none d-md-block">嚴格品管，每批農產品都通過檢驗與挑選，確保新鮮與美味</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- s6 1120新增 1203完成-->
+    <section id="s06" style="position: relative;">
+        <div class="row">
+            <div class="col-md-5 bg-cover"
+                style="position: absolute; top: 0;bottom: 0; background-image: url(pictures/Gemini-enterprisevalue.png);">
+            </div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-md-7 s6-text">
+                    <div class="h2 text-01 fw-900 text-center my-3">創新與進化</div>
+                    <p>在快速變動的市場裡，我們始終保持警覺與前瞻。從產品設計、品牌體驗到服務流程，每一次的調整，都不是為了跟上別人，而是為了超越昨天的自己。我們相信，創新不是一次性的突破，而是一種不斷磨練、持續迭代的態度。唯有持續增強技術力、整合資源、擁抱新工具，企業才能保持靈活、維持競爭力，並在每一個挑戰面前站得更穩、更遠。
+                    </p>
+                    <button class="btn btn-warning not-ready">查看更多</button>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="h4 text-03 fw-900 text-center my-3">誠信與責任</div>
+                            <p>企業規模可以擴張，技術可以升級，但誠信與責任，是永遠不能被犧牲的底線。無論是面對顧客、合作夥伴或員工，我們始終堅持透明、正直與尊重。每一次承諾，都代表我們願意站在第一線，用實際成果證明自己的價值。我們深信，永續經營的基礎不是行銷語言，而是真心守護他人權益、信守每一次約定。
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="h4 text-03 fw-900 text-center my-3">專業與熱情</div>
+                            <p>專業是企業的骨架，熱情是企業的血液。沒有專業，企業站不穩；沒有熱情，企業走不遠。我們的團隊從不停止學習，從不滿足現況。因為我們相信，每一場合作、每一個專案、每一位顧客，都值得被更好的服務、更精準的技術，以及更堅定的態度對待。我們以細節打造品質，用熱情成就信任，並以長久累積的經驗，成為顧客最可靠的夥伴。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- s7 主理人 1120新增 1203大致完成剩下照片-->
+    <section id="s7">
+        <div class="display-2 fw-900 text-03 text-center my-4">員工介紹</div>
+        <div class="container">
+
+            <!-- row 1：大boss + 拉拉熊 -->
+            <div class="row align-items-center mt-3 mb-3">
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="s7-photo me-3" style="background-image: url('pictures/badguy1.jpeg');"></div>
+                        <div>
+                            <div class="h1">主理人：神秘大 Boss</div>
+                            <p>通常不會出現在客戶面前，主要是老闆喜歡私底下找活幹，可能會變裝成某個員工觀察客戶反應。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="s7-photo me-3" style="background-image: url('pictures/lalabear.jpg');"></div>
+                        <div>
+                            <div class="h1">主理人：拉拉熊祕書</div>
+                            <p>提供大家心裡上的舒適感，並處理日常行政工作。雖然看起來像花瓶，但他本人也承認自己就是花瓶。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- row 2：迷因貓經理 + 龍蝦大師（chatgpt重新設計） -->
+            <div class="row align-items-center mt-4 mb-5">
+
+                <!-- 迷因貓經理 -->
+                <div class="col-md-6 mt-3">
+                    <div class="d-flex">
+                        <div class="s7-photo me-3" style="background-image: url('pictures/Gemini_memecat1.png');">
+                        </div>
+                        <div>
+                            <div class="h1">主理人：迷因貓經理</div>
+                            <p>負責產品驗收與品質把關，對不合格產品會立即淘汰。雖然看起來不太情願，但他其實是全公司最認真的監督者。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 龍蝦大師 -->
+                <div class="col-md-6 mt-3">
+                    <div class="d-flex">
+                        <div class="s7-photo me-3"
+                            style="background-image: url('pictures/Gemini_master_lobister.png');">
+                        </div>
+                        <div>
+                            <div class="h1">主理人：龍蝦大師</div>
+                            <p>專精高階食材與海鮮分類，擅長在混亂中找到重點，是內部公認的「智慧型甲殼類」。</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================= -->
+    <!-- **s8：商品輪播** 1203完成-->
+    <!-- ============================= -->
+    <section id="s8" class="bgm-g py-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-end">
+                <div>
+                    <div class="text-uppercase small text-warning">最新商品消息</div>
+                    <div class="fw-900 product-section-title h3 text-white">多樣化產品選擇</div>
+                </div>
+                <a href="http://127.0.0.1:5500/1201gpt.html#"
+                    class="text-decoration-none text-white small not-ready">查看更多<i
+                        class="fa-solid fa-arrow-right-long ms-2"></i>
+                </a>
+            </div>
+
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="10000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row g-3">
+                            <div class="col-sm-6 col-md-3">
+                                <div class="product-card bg-cover">
+                                    <img src="pictures/Gemini_vegetable02.png" alt="蔬菜"
+                                        style="width: 150px; height: 150px;">
+                                </div>
+                                <div class="small text-white text-truncate fw-700">時令鮮蔬</div>
+                                <div class="row flex-column">
+                                    <span class="text-warning fw-700"><i class="fa-solid fa-carrot"></i>店長嚴選:高麗菜</span>
+                                    <span class="text-warning fw-700">NT$30 每台斤</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="product-card">
+                                    <img src="pictures/Gemini_fruits02.png" alt="水果"
+                                        style="width: 150px; height: 150px;">
+                                </div>
+                                <div class="small text-white text-truncate fw-700">當季水果</div>
+                                <div class="row flex-column">
+                                    <span class="text-warning fw-700"><i
+                                            class="fa-solid fa-apple-whole"></i>夏季熱銷:芒果</span>
+                                    <span class="text-warning fw-700">NT$75 每台斤</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="product-card bg-cover">
+                                    <img src="pictures/Gemini_mushroom02.png" alt="香菇"
+                                        style="width: 150px; height: 150px;">
+                                </div>
+                                <div class="small text-white text-truncate fw-700">菇菇樂園</div>
+                                <div class="row flex-column">
+                                    <span class="text-warning fw-700"><i class="fa-solid fa-play"></i>產季將過:香菇</span>
+                                    <span class="text-warning fw-700">NT$135 每台斤</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="product-card bg-cover">
+                                    <img src="pictures/Gemini_flower02.png" alt="花"
+                                        style="width: 150px; height: 150px;">
+                                </div>
+                                <div class="small text-white text-truncate fw-700">花藝世界</div>
+                                <div class="row flex-column">
+                                    <span class="text-warning fw-700"><i class="fa-solid fa-fan"></i>店長推薦:非洲堇</span>
+                                    <span class="text-warning fw-700">NT$200 每盆</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row g-3">
+                            <div class="col-sm-6 col-md-3">
+                                <div class="product-card bg-cover">
+                                    <img src="pictures/Gemini_seed02.png" alt="苗" style="width: 150px; height: 150px;">
+                                </div>
+                                <div class="small text-white text-truncate fw-700">培育系列</div>
+                                <div class="row flex-column">
+                                    <span class="text-warning fw-700"><i
+                                            class="fa-solid fa-seedling"></i>新手推薦:油菜花</span>
+                                    <span class="text-warning fw-700">NT$10 每包</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="product-card bg-cover">
+                                    <img src="pictures/Gemini_meatplant02.png" alt="多肉植物"
+                                        style="width: 150px; height: 150px;">
+                                </div>
+                                <div class="small text-white text-truncate fw-700">愜意生活</div>
+                                <div class="row flex-column">
+                                    <span class="text-warning fw-700"><i class="fa-solid fa-spa"></i>店長推薦:石蓮</span>
+                                    <span class="text-warning fw-700">NT$100 每盆</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="product-card bg-cover">
+                                    <img src="pictures/Gemini_cactus02.png" alt="仙人掌"
+                                        style="width: 150px; height: 150px;">
+                                </div>
+                                <div class="small text-white text-truncate fw-700">懶人福音</div>
+                                <div class="row flex-column">
+                                    <span class="text-warning fw-700"><i class="fa-solid fa-spa"></i>小巧圓潤:大統領</span>
+                                    <span class="text-warning fw-700">NT$100 每盆</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="product-card bg-cover">
+                                    <img src="pictures/Gemini_plant02.png" alt="蕨類"
+                                        style="width: 150px; height: 150px;">
+                                </div>
+                                <div class="small text-white text-truncate fw-700">史前植物</div>
+                                <div class="row flex-column">
+                                    <span class="text-warning fw-700"><i
+                                            class="fa-brands fa-pagelines"></i>店長推薦:鹿角蕨</span>
+                                    <span class="text-warning fw-700">NT$100 每盆</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- s9 價格介紹 1120 1204完成-->
+    <section id="s9" style="position: relative;">
+        <div class="container">
+            <dl class="row">
+                <div class="col-md-8">
+                    <dt class="col-sm-6 h2"><i class="fa-solid fa-gift text-warning"></i>精緻專區</dt>
+                    <dt class="h3">水果禮盒</dt>
+                    <dd class="d-flex h4 mt-2 mb-2">
+                        <p class="text-bg-danger text-white text-center me-4 fw-700  rounded-2">超人氣熱銷</p>
+                        <p class="me-auto">🍎 頂級蜜蘋果禮盒（秋季限定）</p>
+                        <a href="#" class="text-decoration-none not-ready">點我立即購買</a>
+                    </dd>
+                    <dd class="d-flex h4 mt-2 mb-2">
+                        <p class="text-bg-danger text-white text-center me-4 fw-700  rounded-2">超人氣熱銷</p>
+                        <p class="me-auto">🥭 黃金愛文芒果禮盒（夏季限定）</p>
+                        <a href="#" class="text-decoration-none not-ready">點我立即購買</a>
+                    </dd>
+                    <dd class="d-flex h4 mt-2 mb-2">
+                        <p class="text-bg-danger text-white text-center me-4 fw-700  rounded-2">超人氣熱銷</p>
+                        <p class="me-auto">🍇 無籽巨峰葡萄禮盒 (夏、冬兩季) </p>
+                        <a href="#" class="text-decoration-none not-ready">點我立即購買</a>
+                    </dd>
+                    <dd class="d-flex h4 mt-2 mb-2">
+                        <p class="text-bg-danger text-white text-center me-4 fw-700  rounded-2">超人氣熱銷</p>
+                        <p class="me-auto">🍊 頂級椪柑禮盒（節慶最夯）</p>
+                        <a href="#" class="text-decoration-none not-ready">點我立即購買</a>
+                    </dd>
+                    <dd class="d-flex h4 mt-2 mb-2">
+                        <p class="text-bg-warning text-white text-center me-4 fw-700 rounded-2">人氣熱銷</p>
+                        <p class="me-auto">🥝 黃金奇異果禮盒（跨國原裝）</p>
+                        <a href="#" class="text-decoration-none not-ready">點我立即購買</a>
+                    </dd>
+                    <dd class="d-flex h4 mt-2 mb-2">
+                        <p class="text-bg-warning text-white text-center me-4 fw-700 rounded-2">人氣熱銷</p>
+                        <p class="me-auto">🍍 金鑽鳳梨禮盒（旅客爆買款）</p>
+                        <a href="#" class="text-decoration-none not-ready">點我立即購買</a>
+                    </dd>
+                    <dd class="d-flex h4 mt-2 mb-2">
+                        <p class="text-bg-warning text-white text-center me-4 fw-700 rounded-2">人氣熱銷</p>
+                        <p class="me-auto">🍌 有機香蕉禮盒（運動員指定）</p>
+                        <a href="#" class="text-decoration-none not-ready">點我立即購買</a>
+                    </dd>
+                    <dd class="d-flex h4 mt-2 mb-2">
+                        <p class="text-bg-warning text-white text-center me-4 fw-700 rounded-2">人氣熱銷</p>
+                        <p class="me-auto">🥭🍈 綜合水果禮盒（企業團購第一名）</p>
+                        <a href="#" class="text-decoration-none not-ready">點我立即購買</a>
+                    </dd>
+                    <dd class="d-flex h4 mt-2 mb-2">
+                        <p class="text-bg-success text-white text-center me-4 fw-700 rounded-2">新品推薦</p>
+                        <p class="me-auto">🌽 爆汁水果玉米禮盒（新品上市）</p>
+                        <a href="#" class="text-decoration-none not-ready">點我立即購買</a>
+                    </dd>
+                    <dd class="d-flex h4 mt-2 mb-2">
+                        <p class="text-bg-success text-white text-center me-4 fw-700 rounded-2">新品推薦</p>
+                        <p class="me-auto">🍠 蜜香地瓜禮盒（烘焙推薦）</p>
+                        <a href="#" class="text-decoration-none not-ready">點我立即購買</a>
+                    </dd>
+                </div>
+
+            </dl>
+        </div>
+
+        <div class="row justify-content-end">
+            <div class="col-md-4 bg-cover"
+                style="position: absolute; top: 0; bottom: 0; background-image: url(pictures/Gemini_gift.png); ">
+            </div>
+        </div>
+    </section>
+
+    <!-- s10 徵才 1120 1203完成-->
+    <section id="s10">
+        <div class="row">
+            <div class="col-md-6 bg-cover" style="background-image: url(pictures/GROK_seed.jpg);">
+                <div class="row  justify-content-center">
+                    <div class="col-md-7 s10-text ms-4 mt-5">
+                        <small class="text-bg-danger badge">加入我們基金會</small>
+                        <div class="h3">🌏加入我們，一起保護地球，留給下一代乾淨的環境</div>
+                        <p>地球不是我們擁有的，而是向下一代借來的珍貴家園。每一片綠地、每一滴清水、每一口新鮮空氣，都需要你我共同守護。從日常開始，減少浪費、珍惜資源、支持友善環境的產品與行動。當每一個小小選擇都變成一股力量，我們就能為地球減輕負擔。讓永續不只是口號，而是每一天的實踐。一起守護地球，為未來留下更美好的世界。
+                        </p>
+                        <a href="#" class="btn btn-success btn-outline-secondary text-light not-ready">加入</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 bg-cover" style="background-image: url(pictures/iwantyou.png);">
+                <div class="row justify-content-center">
+                    <div class="col-md-7 s10-text me-4 mt-5">
+                        <small class="text-bg-danger badge">廣泛徵才</small>
+                        <div class="h3">🌱 加入我們，一起為土地創造更好的未來！</div>
+                        <p>本基金會致力於推廣友善耕作、永續農業與環境保護，並與農產品經銷商合作，讓每一份農作物都能在不傷害地球的前提下到達消費者手中。我們正在招募有熱忱的你——無論你擅長農業推廣、行銷、物流管理或社區協作，只要願意為土地盡一份心，都歡迎加入我們的行列。一起讓環境更好、農民更好、地球更好。
+                        </p>
+                        <a href="#" class="btn btn-success btn-outline-secondary text-light not-ready">加入</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- s11 1120 timeline 1204完成-->
+    <section id="s12">
+        <div class="container mt-3 mb-3">
+            <div class="h1 text-center">我們的標準流程</div>
+            <div class="timeline-section">
+                <div class="row align-items-center timeline-section-pointer">
+                    <div class="col-md-6 mt-3 roller-box-t">
+                        <div class="roller">
+                            <a href="#" class="btn btn-success not-ready">詳細內容</a>
+                        </div>
+                        <div style="background-image:url(pictures/Gemini_farmer.png); height: 260px;" class="bg-cover">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <div class="h2 text-center">1. 產地栽種：從農夫雙手開始的信任</div>
+                        <p>我們與友善耕作的農夫長期合作，堅持以自然方式栽培每一份作物。從土壤管理、灌溉到採收時機，都依循季節與作物特性精準掌握。每一步都由農夫親自照顧，確保水果與蔬菜在最適熟度採收，維持最新鮮、最安全的品質基礎。
+                        </p>
+                    </div>
+                </div>
+                <div class="row align-items-center flex-row-reverse timeline-section-pointer">
+                    <div class="col-md-6 mt-3 roller-box-b">
+                        <div class="roller">
+                            <a href="#" class="btn btn-success not-ready">詳細內容</a>
+                        </div>
+                        <div style="background-image:url(pictures/Gemini_lab.png); height: 260px;" class="bg-cover">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <div class="h2 text-center">2. 嚴格檢驗：為品質把關的每一道細節</div>
+                        <p>所有農產品在進入倉儲前皆經過多重檢驗，包括外觀挑選、甜度測試、農藥殘留檢測與水分評估。我們以科學數據與人工檢查雙重把關，確保每一批產品符合食品安全標準。唯有通過檢驗的農產品，才會進入後續包裝流程。
+                        </p>
+                    </div>
+                </div>
+                <div class="row align-items-center timeline-section-pointer">
+                    <div class="col-md-6 mt-3 roller-box-r">
+                        <div class="roller">
+                            <a href="#" class="btn btn-success not-ready">詳細內容</a>
+                        </div>
+                        <div style="background-image:url(pictures/Gemini_packaging.png); height: 260px;"
+                            class="bg-cover"></div>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <div class="h2 text-center">3. 精緻包裝：保留新鮮、提升價值</div>
+                        <p>通過檢驗後的農產品將依品項進行客製化包裝，採用透氣、安全、抗壓材質，讓每份產品在運送途中維持最佳狀態。我們注重外觀呈現與保鮮技術，以細緻用心的包裝提升整體品質，讓消費者收到時仍保持鮮度與完整。
+                        </p>
+                    </div>
+                </div>
+                <div class="row align-items-center flex-row-reverse timeline-section-pointer">
+                    <div class="col-md-6 mt-3 roller-box-l">
+                        <div class="roller">
+                            <a href="#" class="btn btn-success not-ready">詳細內容</a>
+                        </div>
+                        <div style="background-image:url(pictures/Gemini_deliever.png); height: 260px;"
+                            class="bg-cover"></div>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <div class="h2 text-center">4. 產地直送：把最新鮮的美味交到你手中</div>
+                        <p>最終包裝完畢後，我們以低溫運輸與專業物流完成配送，確保農產品在最佳溫度下抵達消費者手中。從產地到餐桌，我們以最短距離與最高效率，將新鮮與安心完整送達，讓每位消費者都能感受到來自土地的真實滋味。
+                        </p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- ============================= -->
+    <!-- 🚀 新增 s12：FAQ 常見問題 1204完成-->
+    <!-- ============================= -->
+    <section id="s12" class="bgm-g text-light">
+        <div class="container p-3">
+            <div class="display-4 fw-900 text-center mb-5 text-success">常見問題 FAQ</div>
+
+            <!-- FAQ 1 -->
+            <div class="faq-item">
+                <div class="h3 fw-700">📌 商品多久可以配送？</div>
+                <div class="faq-answer h5">所有商品採「現採直送」，一般 1-3 天即可送達。</div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="faq-item">
+                <div class="h3 fw-700">📌 是否支援貨到付款？</div>
+                <div class="faq-answer h5">目前支援信用卡、超商代碼、Line Pay，暫無貨到付款。</div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="faq-item">
+                <div class="h3 fw-700">📌 生鮮商品可以退貨嗎？</div>
+                <div class="faq-answer h5">因生鮮食品特性，無瑕疵恕不接受退貨；若有瑕疵以現金退還為主；瑕疵之認定由我方為基準。</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================= -->
+    <!-- 🚀 新增 s13：最新文章 / 新聞公告 1204完成-->
+    <!-- ============================= -->
+    <section id="s13" class="bgm-g text-light">
+        <div class="container p-3">
+            <div class="display-4 fw-900 text-center mb-5 text-warning">最新消息 / 部落格</div>
+
+            <div class="row g-4">
+                <!-- 卡片 1 -->
+                <div class="col-md-4">
+                    <div class="news-card">
+                        <img src="./20251201gpt_files/Gemini_vegetables.png">
+                        <div class="p-3">
+                            <div class="h4 fw-700">農產品季節指南</div>
+                            <p>教你如何挑選當季最鮮甜的蔬果！</p>
+                            <a href="#" class="s13-text not-ready">閱讀更多 →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 卡片 2 -->
+                <div class="col-md-4">
+                    <div class="news-card">
+                        <img src="./20251201gpt_files/Gemini_fruits.png">
+                        <div class="p-3">
+                            <div class="h4 fw-700">本月熱銷排行</div>
+                            <p>看看大家最近都在買什麼！</p>
+                            <a href="#" class="s13-text not-ready">閱讀更多 →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 卡片 3 -->
+                <div class="col-md-4">
+                    <div class="news-card">
+                        <img src="./20251201gpt_files/Gemini_seed.png">
+                        <div class="p-3">
+                            <div class="h4 fw-700">種苗入門指南</div>
+                            <p>手把手教你開始自己的小農園。</p>
+                            <a href="#" class="s13-text not-ready">閱讀更多 →</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- s14 1120 購買表單 1204剩下重疊部分-->
+    <section id="s14">
+        <div class="container">
+            <div class="row mt-5">
+                <div class="d-none d-lg-block col-lg-6">
+                    <h1 class="text-center mb-5"><i class="fa-solid fa-location-dot text-danger"></i>我們的總部</h1>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3640.0342014645666!2d120.6075480758652!3d24.17053327838603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693e048d342aa9%3A0x2b6f18a6783fa3b!2z5Yue5YuV6YOo5Yue5YuV5Yqb55m85bGV572y5Lit5b2w5oqV5YiG572y77yI6Ie65Lit6IG36KiT5bGA77yJ!5e0!3m2!1szh-TW!2stw!4v1763608067842!5m2!1szh-TW!2stw"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="col-lg-6">
+                    <h1 class="text-center">👉 心動不如馬上行動！</h1>
+                    <div class="mb-3">
+                        <label for="" class="form-label">姓名</label>
+                        <input type="text" class="form-control  is-invalid" id="name">
+                        <div class="valid-feedback">已填寫!</div>
+                        <div class="invalid-feedback">請務必填寫!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">電話</label>
+                        <input type="number" class="form-control  is-invalid" id="phone">
+                        <div class="valid-feedback">已填寫!</div>
+                        <div class="invalid-feedback">請務必填寫!</div>
+                    </div>
+                    <div class="mb-3">
+                        <select name="" id="cargo_type" class="form-select form-select-lg  is-invalid">
+                            <option value="" disabled selected>---貨物類型---</option>
+                            <option value="">水果</option>
+                            <option value="">蔬菜</option>
+                            <option value="">菇類</option>
+                            <option value="">其他</option>
+                        </select>
+                        <div class="valid-feedback">已勾選!</div>
+                        <div class="invalid-feedback">請務必勾選!</div>
+                    </div>
+                    <div class="mb-3 d-flex">
+                        <div class="col-4">
+                            <label for="city">縣市</label>
+                            <select name="" id="s9_city" class="form-select form-select-lg  is-invalid">
+                                <option value="" disabled selected>---運送地區---</option>
+                            </select>
+                            <div class="valid-feedback">已勾選!</div>
+                            <div class="invalid-feedback">請務必勾選!</div>
+                        </div>
+                        <div class="col-4">
+                            <label for="town">鄉鎮市</label>
+                            <select name="" id="s9_town" class="form-select form-select-lg  is-invalid">
+                                <option value="" disabled selected>---請先選擇縣市---</option>
+                            </select>
+                            <div class="valid-feedback">已勾選!</div>
+                            <div class="invalid-feedback">請務必勾選!</div>
+                        </div>
+                        <div class="col-4">
+                            <label for="address">地址</label>
+                            <input type="text" class="form-control form-select-lg is-invalid" id="s9_address">
+                            <div class="valid-feedback">已填寫!</div>
+                            <div class="invalid-feedback">請務必填寫!</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 d-flex">
+                        <div class="form-check">
+                            <div class="h4">購買須知:生鮮食品無法退貨，我已同意</div>
+                            <input type="checkbox" class="form-check-input is-invalid" value="同意" id="switch01">
+                            <label for="" class="form-check-label">經本人閱讀條款後同意</label>
+                            <div class="valid-feedback">已勾選!</div>
+                            <div class="invalid-feedback">請務必勾選!</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <button class="btn btn-success text-light" id="ok_btn">確認</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- s15 1120 footer 1204完成-->
+    <section id="s15">
+        <div class="container bgm-g">
+            <ul class="nav justify-content-between">
+                <li class="nav-item">
+                    <a class="nav-link active s15-text" aria-current="page" href="#">回首頁</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link s15-text not-ready" href="#">產品專區</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled text-white" href="#">圖片取自於AI</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled text-white" aria-disabled="true">@PowerBy 詹大乙</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- s16 btt按鈕 -->
+    <button id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="js/jquery-3.7.1.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/json/AllData.json"></script>
+    <script src="js/sweetalert2@11.js"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js">	</script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>new WOW().init();</script>
+
+    <script>
+        $(function () {
+            //檢查token是否存在與合法
+            checkLoginStatus();
+        })
+
+        //registerAPI
+        let flag_r_userName = false;
+        let flag_r_password = false;
+        let flag_r_retype_password = false;
+
+        $(function () {
+            //監聽#r_userName
+            $("#r_userName").on("input", function () {
+                //防止連續多次觸發
+                let timer = null;
+                clearTimeout(timer);
+
+                timer = setTimeout(() => {
+                    if ($(this).val().length > 0 && $(this).val().length < 20) {
+                        let userName = $(this).val();
+
+                        //傳遞置後端驗證帳號是否已經存在
+                        axios.post('http://localhost:5000/api/checkuni', {
+                            userName: userName
+                        })
+                            .then(function (response) {
+                                console.log(response);
+                                if (response.data.status) {
+                                    // 通過後台驗證這個帳號可以用
+                                    $("#r_userName").removeClass("is-invalid");
+                                    $("#r_userName").addClass("is-valid");
+                                    $("#r_userName-valid-feedback").text(response.data.message);
+                                    flag_r_userName = true;
+                                } else {
+                                    //帳號已經存在的情況
+                                    $("#r_userName").removeClass("is-valid");
+                                    $("#r_userName").addClass("is-invalid");
+                                    $("#r_userName-invalid-feedback").text(response.data.message);
+                                    flag_r_userName = false;
+                                }
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            })
+                            .finally(function () {
+                                //
+                            });
+                    } else {
+                        //不符合規定
+                        $(this).removeClass("is-valid");
+                        $(this).addClass("is-invalid");
+                        $("#r-userName-invalid-feedback").text("帳號不符合規定!");
+                        flag_r_userName = false;
+                    }
+                }, 500);
+            });
+
+            //監聽#r_password
+            $("#r_password").on("input", function () {
+                //確認密碼顯示不符合規定
+                $("#r_retype_password").removeClass("is-valid");
+                $("#r_retype_password").addClass("is-invalid");
+                flag_r_retype_password = false;
+
+                if ($(this).val().length > 0 && $(this).val().length < 20) {
+                    //符合規定
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_r_password = true;
+                } else {
+                    //不符合規定
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_r_password = false;
+                }
+            });
+
+            //監聽#r_retype_password
+            $("#r_retype_password").on("input", function () {
+                if ($(this).val() == $("#r_password").val()) {
+                    //符合規定
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_r_retype_password = true;
+                } else {
+                    //不符合規定
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_r_retype_password = false;
+                }
+            });
+
+            //監聽按鈕 #r_btn_ok
+            $("#r_btn_ok").on("click", function () {
+                if (flag_r_userName && flag_r_password && flag_r_retype_password) {
+                    //傳遞至後端執行註冊
+                    //整理傳遞給後端的json格式資料
+                    // let jsonDATA = {};
+                    // jsonDATA["username"] = $("#r-username").val();
+                    // jsonDATA["password"] = $("#r-password").val();
+                    // console.log(JSON.stringify(jsonDATA);
+
+                    // axios.post('http://127.0.0.1:5000/api/register',jsonDATA),
+                    //     {
+                    //         headers: {
+                    //             'Content-Type': 'application/json'
+                    //         }
+                    //     })
+                    //     .then(function (response) {
+                    //         console.log(response);
+                    //         then(function (response) {
+                    //             console.log(response);
+                    //             if (response.request.status == 200) {
+                    //                 Swal.fire({
+                    //                     title: "已成功註冊!",
+                    //                     showDenyButton: false,
+                    //                     showCancelButton: false,
+                    //                     confirmButtonText: "確認",
+                    //                     denyButtonText: `Don't save`,
+                    //                     icon: "success"
+                    //                 }).then((result) => {
+                    //                     if (result.isConfirmed) {
+                    //                         //關閉modal所有的功能
+                    //                         // bootstrap.Modal.getOrCreateInstance("#registerModal").hide();
+                    //                     }
+                    //                 });
+                    //             }
+                    //         })
+                    //     })
+                    //     .catch(function (error) {
+                    //         console.log(error);
+                    //     })
+                    //     .finally(function () {
+                    //         // always executed
+                    //     });
+
+                    //方法二
+                    let jsonDATA = {
+                        userName: $("#r_userName").val(),
+                        password: $("#r_password").val()
+                    };
+
+                    axios.post("http://127.0.0.1:5000/api/register", jsonDATA)
+                        .then(function (response) {
+                            console.log(response);
+                            if (response.request.status == 200) {
+                                Swal.fire({
+                                    title: "已成功註冊!",
+                                    showDenyButton: false,
+                                    showCancelButton: false,
+                                    confirmButtonText: "確認",
+                                    denyButtonText: `Don't save`,
+                                    icon: "success"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        //關閉modal所有的功能
+                                        bootstrap.Modal.getOrCreateInstance("#registerModal").hide();
+
+                                        //清空欄位，重新觸發驗證行為
+                                        //名稱記得寫對
+                                        $("#r_userName").val('').trigger('input');
+                                        $("#r_password").val('').trigger('input');
+                                        $("#r_retype_password").val('');
+                                    }
+                                });
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                        .finally(function () {
+                            //
+                        })
+
+                } else {
+                    Swal.fire({
+                        title: "欄位錯誤!",
+                        icon: "error"
+                    });
+                }
+            })
+        })
+
+        //loginAPI
+        let flag_l_userName = false;
+        let flag_l_password = false;
+
+        //清空登入填寫欄位
+        function resetLoginForm() {
+            // 清空欄位
+            $("#l_userName").val("");
+            $("#l_password").val("");
+
+            // 移除驗證狀態
+            $("#l_userName").removeClass("is-valid is-invalid");
+            $("#l_password").removeClass("is-valid is-invalid");
+
+            // 重置旗標
+            flag_l_userName = false;
+            flag_l_password = false;
+        }
+
+        $(function () {
+
+            //監聽#l_userName
+            $("#l_userName").on("input", function () {
+                if ($(this).val().length > 0 && $(this).val().length < 20) {
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_l_userName = true;
+                } else {
+                    //不符合規定
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_l_userName = false;
+                }
+            });
+
+            //監聽#l_password
+            $("#l_password").on("input", function () {
+                if ($(this).val().length > 0 && $(this).val().length < 20) {
+                    //符合規定
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_l_password = true;
+                } else {
+                    //不符合規定
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_l_password = false;
+                }
+            });
+
+            //監聽按鈕 #l_btn_ok
+            $("#l_btn_ok").on("click", function () {
+                if (flag_l_userName && flag_l_password) {
+                    //傳遞置後端進行登入驗證
+                    axios.post("http://127.0.0.1:5000/api/login", {
+                        userName: $("#l_userName").val(),
+                        password: $("#l_password").val()
+                    })
+                        .then(function (response) {
+                            console.log(response);
+                            if (response.data.status) {
+                                Swal.fire({
+                                    title: response.data.message,
+                                    icon: "success",
+                                    confirmButtonText: "確認",
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        //登入驗證成功
+                                        //loginmodel關閉
+                                        bootstrap.Modal.getOrCreateInstance("#loginModal").hide();
+
+                                        //會員登入成功
+                                        setLoginUI(response.data.userName);
+                                        console.log(response.data.userName);
+
+                                        //將token寫入cookie
+                                        // setCookie("uid", response.data.token, 7);
+
+                                        //寫入localstorage
+                                        localStorage.setItem("uid", response.data.token);
+                                    }
+                                })
+                            } else {
+                                //登入驗證失敗
+                                Swal.fire({
+                                    title: response.data.message,
+                                    icon: "error",
+                                    confirmButtonText: "確認",
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        //清空欄位
+                                        resetLoginForm();
+                                        //loginModal關閉
+                                        bootstrap.Modal.getOrCreateInstance("#loginModal").hide();
+                                    }
+                                });
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                        .finally(function () {
+                            //
+                        });
+                } else {
+                    Swal.fire({
+                        title: "登入欄位錯誤!",
+                        icon: "error"
+                    });
+                }
+            });
+
+            //登出按鈕監聽
+            $("#s2_logoutbtn").on("click", function () {
+                clearLoginUI();
+                //清除localstorage
+                localStorage.removeItem("uid");
+                //清空欄位
+                resetLoginForm();
+            })
+        })
+
+        //檢查token是否存在與合法與否
+        function checkLoginStatus() {
+            let token = localStorage.getItem("uid");
+            if (!token) {
+                console.log("沒有token!");
+            }
+
+            axios.get("http://127.0.0.1:5000/api/me", {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+                .then(function (response) {
+                    console.log(response);
+                    //token驗證成功
+                    setLoginUI(response.data.userName)
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                    //
+                })
+        }
+
+        //監聽控制台按鈕
+            $("#s2_controlbtn").on("click", function () {
+                //從原本的網頁位置直接開啟新分頁
+                // window.location.href = "project1216.html";
+
+                //開啟新分頁
+                window.open("project1216controlmember.html", "_blank");
+            })
+
+        function setLoginUI(userName) {
+            //s2登入與註冊按鈕消失
+            $("#s2_loginbtn").addClass("d-none");
+            $("#s2_registerbtn").addClass("d-none");
+
+            //顯示會員登錄訊息與登出按鈕
+            $("#s2_menber_span").removeClass("d-none");
+            $("#s2_logoutbtn").removeClass("d-none");
+            $("#s2_menber_span").html(`會員: <span class="text-03 h3 me-2">${userName}</span>`);
+
+            //顯示控制台
+            $("#s2_controlbtn").removeClass("d-none");
+
+            // //顯示內頁區塊
+            // $("#s04").removeClass("d-none");
+            // $("#s05").removeClass("d-none");
+            // $("#s06").removeClass("d-none");
+            // $("#s07").removeClass("d-none");
+            // $("#s08").removeClass("d-none");
+            // $("#s09").removeClass("d-none");
+            // $("#s10").removeClass("d-none");
+        }
+
+        function clearLoginUI(userName) {
+            //s2登入與註冊按鈕恢復
+            $("#s2_loginbtn").removeClass("d-none");
+            $("#s2_registerbtn").removeClass("d-none");
+
+            //取消會員登錄訊息與登出按鈕
+            $("#s2_menber_span").addClass("d-none");
+            $("#s2_logoutbtn").addClass("d-none");
+            $("#s2_controlbtn").addClass("d-none");
+
+            // //在鎖回去
+            // $("#s04").addClass("d-none");
+            // $("#s05").addClass("d-none");
+            // $("#s06").addClass("d-none");
+            // $("#s07").addClass("d-none");
+            // $("#s08").addClass("d-none");
+            // $("#s09").addClass("d-none");
+            // $("#s10").addClass("d-none");
+        }
+
+        //faq-js
+        $(function () {
+            $(".faq-item").on("click", function () {
+                // 是否已展開？
+                const isOpen = $(this).hasClass("active");
+
+                // 先收起所有
+                $(".faq-answer").slideUp(200);
+                $(".faq-item").removeClass("active");
+
+                // 如果剛剛不是打開，現在就打開它
+                if (!isOpen) {
+                    $(this).addClass("active");
+                    $(this).find(".faq-answer").slideDown(200);
+                }
+            });
+        });
+
+        //S14購買商品
+        // 最上方資料列表
+        const counterUp = window.counterUp.default;
+        const callback = entries => {
+            entries.forEach(entry => {
+                const el = entry.target;
+                if (entry.isIntersecting && !el.classList.contains('is-visible')) {
+                    counterUp(el, {
+                        duration: 2000,
+                        delay: 15,
+                    });
+
+                    el.classList.add('is-visible');
+                }
+            });
+        };
+        const IO = new IntersectionObserver(callback, { threshold: 1 });
+
+        // const el = document.querySelector('.counter');
+        // IO.observe(el)
+        const el01 = document.querySelector('.counter01')
+        IO.observe(el01)
+        const el02 = document.querySelector('.counter02')
+        IO.observe(el02)
+        const el03 = document.querySelector('.counter03')
+        IO.observe(el03)
+        const el04 = document.querySelector('.counter04')
+        IO.observe(el04)
+
+        let cityData = [];
+
+        fetch("js/json/CityCountyData.json")
+            .then(response => response.json())
+            .then(data => {
+                cityData = data;
+                loadCities();
+            });
+
+        function loadCities() {
+            const citySelect = document.getElementById("s9_city");
+
+            cityData.forEach(item => {
+                const option = document.createElement("option");
+                option.value = item.CityName;
+                option.textContent = item.CityName;
+                citySelect.appendChild(option);
+            });
+        }
+
+        document.getElementById("s9_city").addEventListener("change", function () {
+            const selectedCity = this.value;
+            const districtSelect = document.getElementById("s9_town");
+
+            // 清空鄉鎮市
+            districtSelect.innerHTML = `<option selected disabled>請選擇鄉鎮市區</option>`;
+
+            // 找到選中的縣市資料
+            const cityObj = cityData.find(item => item.CityName === selectedCity);
+
+            cityObj.AreaList.forEach(area => {
+                const option = document.createElement("option");
+                option.value = area.AreaName;
+                option.textContent = area.AreaName;
+                districtSelect.appendChild(option);
+            });
+        });
+
+        let flag_name = false;
+        let flag_phone = false;
+        let flag_cargo_type = false;
+        let flag_s9_city = false;
+        let flag_s9_town = false;
+        let flag_s9_address = false;
+        let flag_switch01 = false;
+
+        // 讀取資料
+        let name = $("#name").val();
+        let phone = $("#phone").val();
+        let cargo_type = $("#cargo_type").val();
+        let s9_city = $("#s9_city").val();
+        let s9_town = $("#s9_town").val();
+        let switch01 = $("#switch01").val();
+        $(function () {
+            //監聽#name
+            $("#name").on("input", function () {
+                // console.log($(this).val().length < 20);
+                if ($(this).val().length > 1 && $(this).val().length < 20) {
+                    //符合規定
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_name = true;
+                } else {
+                    //不符合規定
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_name = false;
+                }
+            });
+
+            //監聽電話
+            $("#phone").on("input", function () {
+                // console.log($(this).val().length < 20);
+                if ($(this).val().length > 9 && $(this).val().length < 11) {
+                    //符合規定
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_phone = true;
+                } else {
+                    //不符合規定
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_phone = false;
+                }
+            });
+
+            //監聽cargo_type
+            $("#cargo_type").on("change", function () {
+                console.log($(this).val());
+                //符合規定
+                $(this).removeClass("is-invalid");
+                $(this).addClass("is-valid");
+                flag_cargo_type = true;
+            });
+
+            //監聽s9_city、s9_town
+            $("#s9_city").on("input", function () {
+                console.log($(this).val());
+                //符合規定
+                $(this).removeClass("is-invalid");
+                $(this).addClass("is-valid");
+                flag_s9_city = true;
+            });
+
+            $("#s9_town").on("input", function () {
+                console.log($(this).val());
+                //符合規定
+                $(this).removeClass("is-invalid");
+                $(this).addClass("is-valid");
+                flag_s9_town = true;
+            });
+
+            $("#s9_address").on("input", function () {
+                console.log($(this).val());
+                //符合規定
+                $(this).removeClass("is-invalid");
+                $(this).addClass("is-valid");
+                flag_s9_town = true;
+            });
+
+            //監聽switch01
+            $("#switch01").on("change", function () {
+                if ($(this).prop("checked")) {
+                    $(this).removeClass("is-invalid").addClass("is-valid");
+                    flag_switch01 = true;
+                } else {
+                    flag_switch01 = false;
+                }
+            });
+
+            $("#ok_btn").on("click", function () {
+
+                if (flag_name && flag_phone && flag_cargo_type && flag_s9_city && flag_s9_town && flag_s9_address && flag_switch01) {
+
+                    Swal.fire({
+                        title: "完成",
+                        text: "訂單已送出!",
+                        icon: "success"
+                    });
+
+                } else {
+                    Swal.fire({
+                        title: "錯誤",
+                        text: "欄位有誤，請更正!",
+                        icon: "error"
+                    });
+                }
+            });        
+
+        });
+
+        //偷懶連結
+        $(".not-ready").on("click", function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: "努力建置中！",
+                text: "這個作品目前還在製作中，敬請期待。",
+                imageUrl: "pictures/Gemini_farmersorry1.png", // 🔥 放你的圖片位置
+                imageWidth: 300,                    // 🔥 圖片寬度
+                imageHeight: 300,                   // 🔥 圖片高度
+                imageAlt: "作品圖片",
+                confirmButtonText: "了解",
+                confirmButtonColor: "#3085d6",
+                background: "#fff",
+            });
+        });
+
+        // back to top 按鈕顯示 / 隱藏按鈕
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 300) {
+                $("#backToTop").addClass("show");
+            } else {
+                $("#backToTop").removeClass("show");
+            }
+        });
+
+        // 點擊按鈕回到最頂端
+        $("#backToTop").click(function () {
+            $("html, body").animate({ scrollTop: 0 }, 100); // 100ms 平滑滾動
+        });
+
+        //w3c cookie
+        function setCookie(cname, cvalue, exdays) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+            document.cookie =
+                name + "=" + encodeURIComponent(value) +
+                ";expires=" + expires.toUTCString() +
+                ";path=/";
+        }
+
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+    </script>
+
+</body>
+
+</html>

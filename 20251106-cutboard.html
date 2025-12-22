@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh0TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>切版練習2</title>
+    <link rel="stylesheet" href="CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="CSS/color chatgpt 1.css">
+    <link rel="stylesheet" href="CSS/mycss.css">
+
+    <style>
+        .roller-box{
+            position: relative;
+        }
+        .roller-box .roller{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            transform: translateY(-100%);
+            display: flex;
+            align-items: center;
+        }
+        .roller-box:hover .roller{
+            transform: translateY(0);
+            transition: 1.5s;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4 bg-cover roller-box" style="background-image: url(pictures/food1.avif); height: 220px;">
+                <div class="roller">
+                    <a href="#" class="btn btn-info mx-auto">food</a>
+                </div>
+            </div>
+            <div class="col-4 bg-cover roller-box" style="background-image: url(pictures/eggsala.jpg); height: 220px;">
+                <div class="roller">
+                    <a href="#" class="btn btn-info mx-auto">sala</a>
+                </div>
+            </div>
+            <div class="col-4 bg-cover" style="background-image: url(pictures/pizza.jpg); height: 220px;"></div>
+        </div>
+
+        <div class="row vh-100">
+            <div class="col-md-3 bg-cover">
+                <div class="row h-100">
+                    <div style="background-image: url(pictures/run1.jpg);" class="h=25 bg-cover"></div>
+                    <div style="background-image: url(pictures/run2.jpg);" class="h=50 bg-cover"></div>
+                    <div style="background-image: url(pictures/run3.jpg);" class="h=25 bg-cover"></div>
+                </div>
+            </div>
+            <div class="col-md-5 bg-cover" style="background-image:url(pictures/meme1.avif);"></div>
+            <div class="col-md-4">
+                <div class="row h-100">
+                    <div style="background-image: url(pictures/catmeme1.avif);" class="h=50 bg-cover"></div>
+                    <div style="background-image: url(pictures/dogmeme1.avif);" class="h=50 bg-cover"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3 bg-cover" style="background-image: url(pictures/jae-park-7GX5aICb5i4-unsplash.jpg); height: 220px;"></div>
+            <div class="col-3 bg-cover" style="background-image: url(pictures/lobistor2.jpg); height: 220px;"></div>
+            <div class="col-3 bg-cover" style="background-image: url(pictures/montan2.jpg); height: 220px;"></div>
+            <div class="col-3 bg-cover" style="background-image: url(pictures/montan1.jpg); height: 220px;"></div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.js"></script>
+</body>
+</html>
