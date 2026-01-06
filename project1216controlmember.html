@@ -1,79 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>controller</title>
-
-    <link rel="stylesheet" href="css/all.min.css">
+    <title>控制台</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/mycss.css">
     <link rel="stylesheet" href="css/table-rwd.css">
-    <link rel="stylesheet" href="css/color-chatgpt1.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/mycss.css">
+
+    <style>
+        .chart-card {
+            height: 400px;
+            /* 統一高度 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-card canvas {
+            flex: 1;
+            /* 讓 canvas 撐滿剩餘空間 */
+        }
+    </style>
 </head>
 
 <body>
-
-    <!-- s2 導覽列 -->
-    <section id="s2">
+    <!--****************** s02 ***************************-->
+    <section id="s02">
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand text-success" href="project1216.html">
-                    <i class="fa-brands fa-pagelines fa-2x"></i> MiNi商店
+                    <i class="fa-brands fa-pagelines fa-2x">後台</i>
                 </a>
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav">
+                    data-bs-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a class="nav-link not-ready" href="#">關於我們</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                農產品專區
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item not-ready" href="#">水果</a></li>
-                                <li><a class="dropdown-item not-ready" href="#">蔬菜</a></li>
-                                <li><a class="dropdown-item not-ready" href="#">菇類</a></li>
-                                <li><a class="dropdown-item not-ready" href="#">種苗</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item not-ready" href="#">其他</a></li>
-                            </ul>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="project1216.html"><i
+                                    class="fa-solid fa-house me-1 text-info"></i>首頁</a>
                         </li>
                     </ul>
-
-                    <div class="d-flex align-items-center">
-                        <span class="text-03 h5 me-3 d-none" id="s2_menber_span"></span>
-                        <button class="btn btn-danger" id="s2_logoutbtn">登出</button>
+                    <div class="d-flex">
+                        <span class="text-01 h3 me-2 d-none" id="s02-member-span">會員: <span
+                                class="text-03 fw-900 h2">xxx</span></span>
+                        <button class="btn btn-danger d-none me-2" id="s02-logout-btn"><i
+                                class="fa-solid fa-right-from-bracket"></i>登出</button>
                     </div>
                 </div>
             </div>
         </nav>
     </section>
 
-    <!-- admin 專屬會員列表 -->
+
+
+    <!-- xxxx專屬的報表 -->
+    <section id="xxchart" class="mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="h1">會員等級分布表</div>
+                    <canvas id="myChartlevel"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <div class="h1">會員學歷分布表</div>
+                    <canvas id="myChartedu"></canvas>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="co1-12">
+                    <div class="h1">會員居住地分布表</div>
+                    <canvas id="myChartcity"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- admin專屬的會員列表 -->
     <section id="adminPanel" class="d-none mt-5">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-10">
-                    <div class="card shadow">
-                        <div class="card-body">
-                            <h4 class="mb-3">會員管理列表</h4>
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>會員編號</th>
-                                        <th>會員帳號</th>
-                                        <th>會員等級</th>
-                                        <th>註冊時間</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="userstbody"></tbody>
-                            </table>
+                <div class="col-12">
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    會員列表
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="card mt-5">
+                                        <div class="card-header h2 fw-900 text-bg-primary">會員列表</div>
+                                        <div class="card-body">
+                                            <table class="table table-rwd">
+                                                <thead>
+                                                    <tr>
+                                                        <th>會員編號</th>
+                                                        <th>會員帳號</th>
+                                                        <th>會員等級</th>
+                                                        <th>註冊時間</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="userstbody">
+                                                    <tr>
+                                                        <td data-th="編號">xx</td>
+                                                        <td data-th="帳號">xx</td>
+                                                        <td data-th="等級">xx</td>
+                                                        <td data-th="時間">xx</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -81,76 +127,207 @@
         </div>
     </section>
 
-    <!-- JS -->
-    <script src="js/jquery-3.7.1.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.js"></script>
     <script src="js/axios.min.js"></script>
     <script src="js/sweetalert2@11.js"></script>
-
+    <script src="js/chart.js"></script>
     <script>
+        let myChart = null;
+        let myChartlevel = null;
+        let myChartedu = null;
+        let myChartcity = null;
+        const API_URL = "http://127.0.0.1:5000";
         $(function () {
             checkLoginStatus();
-
-            $("#s2_logoutbtn").on("click", function () {
+            //登出按鈕監聽
+            $("#s02-logout-btn").on("click", function () {
+                //清除localstorage
                 localStorage.removeItem("uid");
-                location.reload();
+                window.location.href = "project1216.html";
+
             });
         });
 
         function checkLoginStatus() {
             let token = localStorage.getItem("uid");
-            if (!token) return;
+            if (!token) {
+                Swal.fire({
+                    title: "請先登入會員",
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    confirmButtonText: "確認",
+                    denyButtonText: `Don't save`
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "project1216.html";
+                    }
+                });
+                return;
+            }
 
-            axios.get("http://127.0.0.1:5000/api/me", {
+            //驗證token
+            axios.get('http://127.0.0.1:5000/api/me', {
                 headers: { Authorization: `Bearer ${token}` }
             })
-            .then(function (response) {
-                if (response.data.status) {
-                    setControlUI(response.data.userName);
+                .then(function (response) {
+                    console.log(response);
+                    //token驗證成功
+                    if (response.data.status) {
+                        // alert("驗證成功!");
+                        setControlPanelUI(response.data.username)
 
-                    if (response.data.level === 'admin') {
-                        $("#adminPanel").removeClass("d-none");
-                        loadAllUsers();
+                        //判斷是否為admin, 如果為admin就顯示專屬的會員列表
+                        if (response.data.level == 'admin') {
+                            $("#adminPanel").removeClass('d-none');
+                            //產生會員列表
+                            loadAllUsers();
+
+                            //產生會員等級分布圖表
+                            darwChartLevel();
+                        } else {
+                            $("#adminPanel").addClass('d-none');
+                        }
                     }
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                    // always executed
+
+                });
         }
 
-        function setControlUI(userName) {
-            $("#s2_menber_span")
-                .removeClass("d-none")
-                .html(`會員：<strong>${userName}</strong>`);
+        function setControlPanelUI(username) {
+            //顯示登入會員訊息
+            $("#s02-member-span").removeClass("d-none");
+            $("#s02-member-span").html(`會員: <span class="text-03 fw-900 h2">${username}</span>`);
+
+            //顯示登出按鈕
+            $("#s02-logout-btn").removeClass("d-none");
+
+            //顯示內頁區塊
+
         }
 
         function loadAllUsers() {
-            let token = localStorage.getItem("uid");
-            if (!token) return;
+            token = localStorage.getItem("uid");
+            if (!token) {
+                return;
+            }
 
-            axios.get("http://127.0.0.1:5000/api/admin", {
+            axios.get(`${API_URL}/api/admin/users`, {
                 headers: { Authorization: `Bearer ${token}` }
             })
-            .then(function (response) {
-                $("#userstbody").empty();
-
-                response.data.users.forEach(item => {
-                    $("#userstbody").append(`
-                        <tr>
-                            <td data-th="編號">${item.id}</td>
-                            <td data-th="帳號">${item.userName}</td>
-                            <td data-th="等級">${item.level}</td>
-                            <td data-th="時間">${item.created_at}</td>
-                        </tr>
-                    `);
+                .then(function (response) {
+                    console.log(response);
+                    $("#userstbody").empty();
+                    response.data.users.forEach((item) => {
+                        let strHTML = `<tr>
+                                        <td data-th="編號">${item.id}</td>
+                                        <td data-th="帳號">${item.username}</td>
+                                        <td data-th="等級">${item.level}</td>
+                                        <td data-th="時間">${item.created_at}</td>
+                                    </tr>`;
+                        $("#userstbody").append(strHTML);
+                    });
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                    // always executed
                 });
+
+        }
+
+        function darwChartLevel() {
+            token = localStorage.getItem("uid");
+            if (!token) {
+                return;
+            }
+
+            axios.get(`${API_URL}/api/admin/level`, {
+                headers: { Authorization: `Bearer ${token}` }
             })
-            .catch(function (error) {
-                console.log(error);
+                .then(function (response) {
+                    console.log(response);
+
+                    const labels = response.data.data.map(arr => arr.level);
+                    const data = response.data.data.map(arr => arr.count);
+                    drawChart(labels, data, 'line');
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                    // always executed
+                });
+        }
+
+        function darwChartEdu() {
+            token = localStorage.getItem("uid");
+            if (!token) {
+                return;
+            }
+
+            axios.get(`${API_URL}/api/admin/edu`, {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+                .then(function (response) {
+                    console.log(response);
+
+                    const labels = response.data.data.map(arr => arr.edu);
+                    const data = response.data.data.map(arr => arr.count);
+                    drawChart(labels, data, 'pie');
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                    // always executed
+                });
+        }
+
+        function drawChart(labels, data, type = 'bar') {
+            const ctx = document.getElementById('myChart');
+            //避免記憶體爆掉
+            if (myChart) {
+                myChart.destroy();
+            }
+            myChart = new Chart(ctx, {
+                type: type, //bar, line, pie
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '統計圖',
+                        data: data,
+                        borderWidth: 1,
+                        backgroundColor: [
+                            '#264653',
+                            '#2A9D8F',
+                            '#E9C46A',
+                            '#F4A261',
+                            '#E76F51',
+                            '#6A4C93',
+                            '#118AB2'
+                        ],
+                        borderColor: '#FFAA00',
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
             });
         }
-    </script>
 
+
+    </script>
 </body>
+
 </html>
